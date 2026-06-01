@@ -1,26 +1,180 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  /* Ailiur brand tokens */
+  --color-ailiur: var(--ailiur-yellow);
+  --color-ailiur-light: var(--ailiur-yellow-light);
+  --color-ailiur-deep: var(--ailiur-yellow-deep);
+  --color-accent-green: var(--accent-green);
+  --color-accent-red: var(--accent-red);
+  --color-enchiridion: var(--enchiridion);
+  --color-ketofy: var(--ketofy);
+
+  /* Generous, soft rounding (Apple glass) */
+  --radius-card: 24px;
+  --radius-panel: 32px;
+
+  /* Type scale (1.414 augmented-fourth) */
+  --text-display: clamp(2.75rem, 6vw, 4.5rem);
+  --text-display--line-height: 1.05;
+  --text-h1: clamp(2rem, 4vw, 3rem);
+  --text-h1--line-height: 1.1;
+  --text-h2: 2.125rem;
+  --text-h2--line-height: 1.2;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+ * Ailiur is a bright-yellow, Apple-glass system. Background is the logo's
+ * yellow field; content floats on frosted-glass panels. Values come from the
+ * ailiur-web-design skill tokens.
+ */
+:root {
+  /* Brand */
+  --ailiur-yellow: #ffd60a;
+  --ailiur-yellow-light: #ffe873;
+  --ailiur-yellow-deep: #f5c400;
+  --accent-green: #1fa85c;
+  --accent-red: #e5392b;
+  --enchiridion: #34c759;
+  --ketofy: #ff9500;
+
+  /* Glass surface tokens */
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-shadow: 0 8px 32px rgba(80, 60, 0, 0.12);
+
+  /* shadcn semantic tokens, recolored to the yellow-glass theme */
+  --background: #ffd60a;
+  --foreground: #1c1606;
+  --card: rgba(255, 255, 255, 0.5);
+  --card-foreground: #1c1606;
+  --popover: #fffdf5;
+  --popover-foreground: #1c1606;
+  --primary: #1fa85c;
+  --primary-foreground: #fffdf5;
+  --secondary: rgba(255, 255, 255, 0.72);
+  --secondary-foreground: #1c1606;
+  --muted: rgba(255, 255, 255, 0.45);
+  --muted-foreground: #6b5a16;
+  --accent: rgba(255, 255, 255, 0.72);
+  --accent-foreground: #1c1606;
+  --destructive: #e5392b;
+  --border: rgba(255, 255, 255, 0.65);
+  --input: rgba(255, 255, 255, 0.65);
+  --ring: #1fa85c;
+
+  --chart-1: #1fa85c;
+  --chart-2: #ff9500;
+  --chart-3: #e5392b;
+  --chart-4: #34c759;
+  --chart-5: #6b5a16;
+
+  --radius: 1rem;
+  --sidebar: rgba(255, 255, 255, 0.72);
+  --sidebar-foreground: #1c1606;
+  --sidebar-primary: #1fa85c;
+  --sidebar-primary-foreground: #fffdf5;
+  --sidebar-accent: rgba(255, 255, 255, 0.5);
+  --sidebar-accent-foreground: #1c1606;
+  --sidebar-border: rgba(255, 255, 255, 0.65);
+  --sidebar-ring: #1fa85c;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    color: var(--foreground);
+    /* Warm yellow field with a soft top-down gradient for depth. Painted
+       directly on the (non-fixed) body so it covers the full document and
+       avoids a fixed layer, which hurts scroll perf and headless capture. */
+    background-color: var(--ailiur-yellow);
+    background-image: radial-gradient(
+      120% 60% at 50% -5%,
+      var(--ailiur-yellow-light) 0%,
+      var(--ailiur-yellow) 40%,
+      var(--ailiur-yellow-deep) 100%
+    );
+    background-repeat: no-repeat;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display), Georgia, serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Frosted "Apple glass" panel */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: var(--glass-filter, blur(18px) saturate(160%));
+    backdrop-filter: var(--glass-filter, blur(18px) saturate(160%));
+  }
+  .glass-strong {
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: var(--glass-filter, blur(20px) saturate(180%));
+    backdrop-filter: var(--glass-filter, blur(20px) saturate(180%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
