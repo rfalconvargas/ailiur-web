@@ -6,9 +6,41 @@ import path from "node:path";
 // on Vercel and spams a dev warning.
 const root = path.resolve(__dirname);
 
+// The Retellum microsite is served from this same project under the
+// retellum.ailiur.com subdomain. We lock it down so the subdomain only ever
+// shows Retellum: its root rewrites to /retellum, and every other path
+// redirects back to the main site. Asset paths (/_next/*) are excluded from
+// the redirect so the page's own JS/CSS still load on the subdomain.
+const RETELLUM_HOST = "retellum.ailiur.com";
+
 const nextConfig: NextConfig = {
   turbopack: { root },
   outputFileTracingRoot: root,
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/",
+          has: [{ type: "host", value: RETELLUM_HOST }],
+          destination: "/retellum",
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
+  async redirects() {
+    return [
+      {
+        // Any non-root path on the subdomain (except internal asset paths)
+        // bounces to the same path on the main site.
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host", value: RETELLUM_HOST }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
