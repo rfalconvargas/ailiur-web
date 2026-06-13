@@ -1,13 +1,7 @@
-import { PlaceholderPage, makeMetadata, type PlaceholderContent } from '@/components/ui/placeholder-page';
+import { redirect } from 'next/navigation';
 
-const content: PlaceholderContent = {
-  "eyebrow": "Products",
-  "title": "Moment",
-  "description": "An all-in-one media logging, indexing, and review service powered by contextual AI. Moment captures and evaluates your interaction with books, games, film, and digital media, feeding your subjective taste back into the ecosystem."
-};
-
-export const metadata = makeMetadata(content);
-
+// Moment is now Retellum — the reflective media graph and media layer of
+// Ailiur. Preserve the old route by sending visitors to the new page.
 export default function Page() {
-  return <PlaceholderPage {...content} />;
+  redirect('/retellum');
 }

@@ -1,0 +1,126 @@
+/**
+ * Aptellum sub-brand tokens — scoped to `.aptellum` only.
+ * Imported by AptellumShell; does not alter global Ailiur pages.
+ */
+
+.aptellum {
+  /* Core palette */
+  --ap-ink: #0f1218;
+  --ap-ink-soft: #1a1f2a;
+  --ap-ivory: #f7f4ee;
+  --ap-ivory-deep: #efe9df;
+  --ap-mist: #c8d4e3;
+  --ap-mist-soft: #e8eef5;
+  --ap-graphite: #5c6470;
+  --ap-graphite-light: #727a86;
+  --ap-gold: #b8956b;
+  --ap-gold-soft: #d4bc9a;
+
+  /* Ailiur tri-color — use sparingly */
+  --ap-ailiur-green: #1fa85c;
+  --ap-ailiur-red: #e5392b;
+  --ap-ailiur-yellow: #ffd60a;
+
+  /* Surfaces */
+  --ap-surface: #ffffff;
+  --ap-surface-muted: #faf8f4;
+  --ap-glass-bg: rgba(255, 255, 255, 0.78);
+  --ap-glass-bg-strong: rgba(255, 255, 255, 0.92);
+
+  /* Borders & depth */
+  --ap-border: rgba(15, 18, 24, 0.08);
+  --ap-border-strong: rgba(15, 18, 24, 0.14);
+  --ap-shadow-sm: 0 1px 2px rgba(15, 18, 24, 0.04), 0 4px 16px rgba(15, 18, 24, 0.04);
+  --ap-shadow-md: 0 4px 24px rgba(15, 18, 24, 0.06);
+  --ap-shadow-lg: 0 12px 48px rgba(15, 18, 24, 0.08);
+  --ap-shadow-hover: 0 8px 32px rgba(15, 18, 24, 0.1);
+
+  /* Radius */
+  --ap-radius-sm: 12px;
+  --ap-radius-md: 16px;
+  --ap-radius-lg: 24px;
+  --ap-radius-xl: 32px;
+  --ap-radius-pill: 9999px;
+
+  /* Type */
+  --ap-text-display: clamp(2.75rem, 6.5vw, 4.75rem);
+  --ap-text-h1: clamp(2rem, 4.5vw, 3.25rem);
+  --ap-text-h2: clamp(1.5rem, 3vw, 2.125rem);
+  --ap-text-h3: 1.25rem;
+  --ap-text-body: 1.0625rem;
+  --ap-text-small: 0.8125rem;
+
+  /* Spacing rhythm */
+  --ap-section-y: clamp(5rem, 10vw, 8rem);
+  --ap-content-max: 72rem;
+
+  color: var(--ap-ink);
+  background-color: var(--ap-ivory);
+  background-image:
+    radial-gradient(ellipse 110% 70% at 50% -15%, var(--ap-mist-soft) 0%, transparent 55%),
+    linear-gradient(180deg, var(--ap-ivory) 0%, var(--ap-ivory-deep) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Editorial grid texture — Colossal-inspired subtle structure */
+.aptellum::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(var(--ap-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ap-border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(180deg, black 0%, transparent 85%);
+}
+
+.aptellum > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Scoped focus — visible, gold-ringed */
+.aptellum a:focus-visible,
+.aptellum button:focus-visible,
+.aptellum [tabindex]:focus-visible {
+  outline: 2px solid var(--ap-gold);
+  outline-offset: 3px;
+}
+
+/* Glass panel (ivory Mercury-style, not Ailiur yellow glass) */
+.aptellum .ap-glass {
+  background: var(--ap-glass-bg);
+  border: 1px solid var(--ap-border);
+  box-shadow: var(--ap-shadow-sm);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+.aptellum .ap-glass-strong {
+  background: var(--ap-glass-bg-strong);
+  border: 1px solid var(--ap-border-strong);
+  box-shadow: var(--ap-shadow-md);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* Studio tool panels — cohesive interactive layer */
+.aptellum .ap-tool-panel:hover {
+  border-color: color-mix(in srgb, var(--ap-gold) 18%, var(--ap-border));
+  box-shadow: var(--ap-shadow-md);
+}
+
+/* Reduced motion — collapse transitions inside Aptellum */
+@media (prefers-reduced-motion: reduce) {
+  .aptellum *,
+  .aptellum *::before,
+  .aptellum *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

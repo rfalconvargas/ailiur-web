@@ -11,7 +11,7 @@ const COLUMNS: { title: string; links: Link[] }[] = [
       { label: 'Enchiridion App', href: 'https://www.enchiridion.ailiur.com' },
       { label: 'Operating System for Life', href: '/products' },
       { label: 'Doblu App', href: '/products/doblu' },
-      { label: 'Moment App', href: '/products/moment' },
+      { label: 'Retellum App', href: '/retellum' },
     ],
   },
   {

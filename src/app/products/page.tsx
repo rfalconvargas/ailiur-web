@@ -8,7 +8,7 @@ const content: PlaceholderContent = {
     "Ketofy \u2014 the AI health concierge",
     "Enchiridion \u2014 the AI learning engine",
     "Doblu \u2014 the AI wealth & productivity hub",
-    "Moment \u2014 the AI media graph"
+    "Retellum \u2014 the reflective media graph"
   ],
   "cta": {
     "label": "Launch Enchiridion",
