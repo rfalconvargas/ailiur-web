@@ -16,6 +16,9 @@ const RETELLUM_HOST = "retellum.ailiur.com";
 // aptellum.ailiur.com — same pattern: subdomain root serves /aptellum.
 const APTELLUM_HOST = "aptellum.ailiur.com";
 
+// tayzt.ailiur.com — same pattern: subdomain root serves /tayzt.
+const TAYZT_HOST = "tayzt.ailiur.com";
+
 const nextConfig: NextConfig = {
   turbopack: { root },
   outputFileTracingRoot: root,
@@ -37,6 +40,11 @@ const nextConfig: NextConfig = {
           has: [{ type: "host", value: APTELLUM_HOST }],
           destination: "/aptellum",
         },
+        {
+          source: "/",
+          has: [{ type: "host", value: TAYZT_HOST }],
+          destination: "/tayzt",
+        },
       ],
       afterFiles: [],
       fallback: [],
@@ -56,6 +64,13 @@ const nextConfig: NextConfig = {
         // Aptellum subdomain: non-root paths (except OG image + assets) → main site.
         source: "/:path((?!_next/|opengraph-image).+)",
         has: [{ type: "host", value: APTELLUM_HOST }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      },
+      {
+        // Tayzt subdomain: non-root paths (except assets) → main site.
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host", value: TAYZT_HOST }],
         destination: "https://ailiur.com/:path",
         permanent: false,
       },

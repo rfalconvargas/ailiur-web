@@ -1,0 +1,179 @@
+/**
+ * Tayzt sub-brand tokens — scoped to `.tayzt` only.
+ * Imported by TayztShell; does not alter global Ailiur yellow pages.
+ *
+ * Direction: premium cinematic interface. Dark editorial ink background,
+ * warm cream typography, soft film grain, glassy black cards, abstract
+ * overlay fragments, and small Ailiur signal accents in gold/green/red.
+ */
+
+.tayzt {
+  /* Core palette */
+  --tz-ink: #090908;
+  --tz-charcoal: #141413;
+  --tz-charcoal-soft: #1c1c1a;
+  --tz-cream: #f5eedc;
+  --tz-cream-soft: #e7dfca;
+  --tz-graphite: #9a948a;
+  --tz-graphite-dim: #6f6a61;
+
+  /* Accents — muted gold leads, signals used sparingly */
+  --tz-gold: #d6a84f;
+  --tz-amber: #ffb84d;
+  --tz-teal: #173c3a;
+
+  /* Ailiur tri-color signals — use sparingly */
+  --tz-green: #7fd97a;
+  --tz-red: #d94b43;
+
+  /* Surfaces — glassy black cards */
+  --tz-glass-bg: rgba(20, 20, 19, 0.55);
+  --tz-glass-bg-strong: rgba(20, 20, 19, 0.82);
+  --tz-surface: #141413;
+  --tz-surface-muted: #100f0e;
+
+  /* Borders & depth */
+  --tz-border: rgba(245, 238, 220, 0.1);
+  --tz-border-strong: rgba(245, 238, 220, 0.18);
+  --tz-hairline: rgba(245, 238, 220, 0.06);
+  --tz-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --tz-shadow-md: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --tz-shadow-glow: 0 0 0 1px var(--tz-border-strong), 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  /* Radius */
+  --tz-radius-sm: 12px;
+  --tz-radius-md: 16px;
+  --tz-radius-lg: 24px;
+  --tz-radius-xl: 32px;
+  --tz-radius-pill: 9999px;
+
+  /* Type */
+  --tz-text-display: clamp(2.75rem, 6.5vw, 5rem);
+  --tz-text-h1: clamp(2rem, 4.5vw, 3.25rem);
+  --tz-text-h2: clamp(1.5rem, 3vw, 2.125rem);
+  --tz-text-body: 1.0625rem;
+  --tz-text-small: 0.8125rem;
+
+  /* Spacing rhythm */
+  --tz-section-y: clamp(5rem, 10vw, 8rem);
+  --tz-content-max: 72rem;
+
+  color: var(--tz-cream);
+  background-color: var(--tz-ink);
+  /* Cinematic atmosphere: deep teal shadow + soft amber glow bleeding from the top. */
+  background-image:
+    radial-gradient(ellipse 90% 55% at 18% -8%, color-mix(in srgb, var(--tz-teal) 55%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% 4%, color-mix(in srgb, var(--tz-amber) 14%, transparent) 0%, transparent 55%),
+    linear-gradient(180deg, var(--tz-ink) 0%, #0c0c0b 60%, var(--tz-ink) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Soft film grain overlay — covers the full scroll area, low opacity. */
+.tayzt::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+.tayzt > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Scoped focus — visible, gold-ringed */
+.tayzt a:focus-visible,
+.tayzt button:focus-visible,
+.tayzt input:focus-visible,
+.tayzt [tabindex]:focus-visible {
+  outline: 2px solid var(--tz-gold);
+  outline-offset: 3px;
+}
+
+/* Glassy black card surfaces */
+.tayzt .tz-glass {
+  background: var(--tz-glass-bg);
+  border: 1px solid var(--tz-border);
+  box-shadow: var(--tz-shadow-sm);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(16px) saturate(120%);
+}
+
+.tayzt .tz-glass-strong {
+  background: var(--tz-glass-bg-strong);
+  border: 1px solid var(--tz-border-strong);
+  box-shadow: var(--tz-shadow-md);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+  backdrop-filter: blur(22px) saturate(130%);
+}
+
+/* Range sliders — gold-filled track, cream thumb. Fill driven by --tz-fill. */
+.tayzt .tz-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+}
+.tayzt .tz-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--tz-gold) 0,
+    var(--tz-gold) var(--tz-fill, 50%),
+    color-mix(in srgb, var(--tz-cream) 14%, transparent) var(--tz-fill, 50%),
+    color-mix(in srgb, var(--tz-cream) 14%, transparent) 100%
+  );
+}
+.tayzt .tz-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: var(--tz-cream);
+  border: 2px solid var(--tz-gold);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s ease;
+}
+.tayzt .tz-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+.tayzt .tz-range::-moz-range-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--tz-cream) 14%, transparent);
+}
+.tayzt .tz-range::-moz-range-progress {
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--tz-gold);
+}
+.tayzt .tz-range::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: var(--tz-cream);
+  border: 2px solid var(--tz-gold);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Reduced motion — collapse transitions inside Tayzt */
+@media (prefers-reduced-motion: reduce) {
+  .tayzt *,
+  .tayzt *::before,
+  .tayzt *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
