@@ -1,0 +1,207 @@
+/**
+ * Tellumetry sub-brand tokens — scoped to `.tellumetry` only.
+ * Imported by TellumetryShell; does not alter global Ailiur yellow pages.
+ *
+ * Direction: a calm, premium AI coding cockpit. Cool off-black instrument
+ * background, soft ivory typography, thin hairlines, glassy panels, and a
+ * pale mint / soft cyan product accent. Ailiur tri-color signals
+ * (green / amber / red) are used sparingly as telemetry readouts.
+ */
+
+.tellumetry {
+  /* Core palette — cool, neutral instrument ink */
+  --tm-ink: #0a0b0d;
+  --tm-charcoal: #121419;
+  --tm-charcoal-soft: #171a20;
+  --tm-ivory: #f2f1ec;
+  --tm-ivory-soft: #d9d8cf;
+  --tm-slate: #969ba6;
+  --tm-slate-dim: #686d78;
+
+  /* Product accent — pale mint leads, soft cyan supports */
+  --tm-mint: #7ce7c0;
+  --tm-cyan: #6fd3e8;
+
+  /* Ailiur tri-color signals — telemetry readouts, used sparingly */
+  --tm-green: #69d98a;
+  --tm-amber: #f2b35e;
+  --tm-red: #ee6a5f;
+
+  /* Surfaces — glassy instrument panels */
+  --tm-glass-bg: rgba(18, 20, 25, 0.55);
+  --tm-glass-bg-strong: rgba(18, 20, 25, 0.84);
+  --tm-surface: #121419;
+  --tm-surface-muted: #0e0f13;
+
+  /* Borders & depth */
+  --tm-border: rgba(242, 241, 236, 0.1);
+  --tm-border-strong: rgba(242, 241, 236, 0.18);
+  --tm-hairline: rgba(242, 241, 236, 0.06);
+  --tm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --tm-shadow-md: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --tm-shadow-glow: 0 0 0 1px var(--tm-border-strong), 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  /* Radius */
+  --tm-radius-sm: 12px;
+  --tm-radius-md: 16px;
+  --tm-radius-lg: 24px;
+  --tm-radius-xl: 32px;
+  --tm-radius-pill: 9999px;
+
+  /* Type */
+  --tm-text-display: clamp(2.75rem, 6.5vw, 5rem);
+  --tm-text-h1: clamp(2rem, 4.5vw, 3.25rem);
+  --tm-text-h2: clamp(1.5rem, 3vw, 2.125rem);
+  --tm-text-body: 1.0625rem;
+  --tm-text-small: 0.8125rem;
+
+  /* Monospace for telemetry readouts only. Defining it here also gives the
+     Tailwind `font-mono` utility a real value inside the scoped microsite
+     (the global token is self-referential and otherwise resolves to nothing). */
+  --tm-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font-mono: var(--tm-mono);
+
+  /* Spacing rhythm */
+  --tm-section-y: clamp(5rem, 10vw, 8rem);
+  --tm-content-max: 72rem;
+
+  color: var(--tm-ivory);
+  background-color: var(--tm-ink);
+  /* Ambient cockpit glow: cool mint + cyan bleeding softly from the top. */
+  background-image:
+    radial-gradient(ellipse 85% 55% at 16% -10%, color-mix(in srgb, var(--tm-cyan) 16%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% -4%, color-mix(in srgb, var(--tm-mint) 12%, transparent) 0%, transparent 55%),
+    linear-gradient(180deg, var(--tm-ink) 0%, #0c0d11 55%, var(--tm-ink) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Faint instrument grid overlay — covers the full scroll area, very low opacity. */
+.tellumetry::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.4;
+  background-image:
+    linear-gradient(to right, rgba(242, 241, 236, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(242, 241, 236, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, black, transparent 75%);
+}
+
+.tellumetry > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Scoped focus — visible, mint-ringed */
+.tellumetry a:focus-visible,
+.tellumetry button:focus-visible,
+.tellumetry input:focus-visible,
+.tellumetry select:focus-visible,
+.tellumetry [tabindex]:focus-visible {
+  outline: 2px solid var(--tm-mint);
+  outline-offset: 3px;
+}
+
+/* Glassy instrument panels */
+.tellumetry .tm-glass {
+  background: var(--tm-glass-bg);
+  border: 1px solid var(--tm-border);
+  box-shadow: var(--tm-shadow-sm);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(16px) saturate(120%);
+}
+
+.tellumetry .tm-glass-strong {
+  background: var(--tm-glass-bg-strong);
+  border: 1px solid var(--tm-border-strong);
+  box-shadow: var(--tm-shadow-md);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+  backdrop-filter: blur(22px) saturate(130%);
+}
+
+/* Pipeline shimmer — a travelling sheen used on the active stage. */
+@keyframes tm-shimmer {
+  0% { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+.tellumetry .tm-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in srgb, var(--tm-mint) 55%, transparent) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: tm-shimmer 1.6s linear infinite;
+}
+
+/* Range sliders — mint-filled track, ivory thumb. Fill driven by --tm-fill. */
+.tellumetry .tm-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+}
+.tellumetry .tm-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--tm-mint) 0,
+    var(--tm-mint) var(--tm-fill, 50%),
+    color-mix(in srgb, var(--tm-ivory) 14%, transparent) var(--tm-fill, 50%),
+    color-mix(in srgb, var(--tm-ivory) 14%, transparent) 100%
+  );
+}
+.tellumetry .tm-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: var(--tm-ivory);
+  border: 2px solid var(--tm-mint);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s ease;
+}
+.tellumetry .tm-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+.tellumetry .tm-range::-moz-range-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--tm-ivory) 14%, transparent);
+}
+.tellumetry .tm-range::-moz-range-progress {
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--tm-mint);
+}
+.tellumetry .tm-range::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: var(--tm-ivory);
+  border: 2px solid var(--tm-mint);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Reduced motion — collapse transitions inside Tellumetry */
+@media (prefers-reduced-motion: reduce) {
+  .tellumetry *,
+  .tellumetry *::before,
+  .tellumetry *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
