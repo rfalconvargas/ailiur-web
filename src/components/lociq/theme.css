@@ -1,0 +1,152 @@
+/**
+ * Lociq sub-brand tokens — scoped to `.lociq` only.
+ * Imported by LociqShell; does not alter global Ailiur yellow pages.
+ *
+ * Direction: a premium, calm, intelligent civic interface — Apple-grade
+ * product marketing meeting a beautiful municipal dashboard. Warm off-white
+ * paper, charcoal type, a soft civic green lead with muted gold and a subtle
+ * signal blue. Soft map-grid background, civic cards, consensus rings, and
+ * thin route lines. Deliberately non-partisan: no political red/blue.
+ */
+
+.lociq {
+  /* Core palette — warm paper + charcoal ink */
+  --lq-paper: #f4f2ea;
+  --lq-paper-raised: #fbfaf5;
+  --lq-ink: #1a1e24;
+  --lq-charcoal: #2b313a;
+  --lq-charcoal-soft: #3a414c;
+  --lq-slate: #5b636f;
+  --lq-slate-dim: #8a909b;
+
+  /* Product accents — soft civic green leads, muted gold + signal blue support */
+  --lq-green: #3f8f6b;
+  --lq-green-deep: #2f7256;
+  --lq-green-bright: #4ba37b;
+  --lq-gold: #b58a39;
+  --lq-gold-soft: #c8a458;
+  --lq-blue: #4f74ac;
+  --lq-blue-soft: #6588bb;
+
+  /* Surfaces — frosted civic glass on paper */
+  --lq-glass-bg: rgba(255, 255, 255, 0.62);
+  --lq-glass-bg-strong: rgba(255, 255, 255, 0.84);
+  --lq-surface: #fbfaf5;
+  --lq-surface-muted: #eeebe1;
+
+  /* Borders & depth — soft, paper-appropriate shadows */
+  --lq-border: rgba(26, 30, 36, 0.1);
+  --lq-border-strong: rgba(26, 30, 36, 0.16);
+  --lq-hairline: rgba(26, 30, 36, 0.06);
+  --lq-shadow-sm: 0 1px 2px rgba(26, 30, 36, 0.06), 0 10px 24px rgba(26, 30, 36, 0.06);
+  --lq-shadow-md: 0 18px 44px rgba(26, 30, 36, 0.1);
+  --lq-shadow-glow: 0 0 0 1px var(--lq-border-strong), 0 22px 60px rgba(26, 30, 36, 0.12);
+
+  /* Radius */
+  --lq-radius-sm: 12px;
+  --lq-radius-md: 16px;
+  --lq-radius-lg: 24px;
+  --lq-radius-xl: 32px;
+  --lq-radius-pill: 9999px;
+
+  /* Type */
+  --lq-text-display: clamp(2.75rem, 6.5vw, 5rem);
+  --lq-text-h1: clamp(2rem, 4.5vw, 3.25rem);
+  --lq-text-h2: clamp(1.5rem, 3vw, 2.125rem);
+  --lq-text-body: 1.0625rem;
+  --lq-text-small: 0.8125rem;
+
+  /* Spacing rhythm */
+  --lq-section-y: clamp(5rem, 10vw, 8rem);
+  --lq-content-max: 72rem;
+
+  color: var(--lq-charcoal);
+  background-color: var(--lq-paper);
+  /* Ambient civic glow: soft green + signal blue bleeding gently from the top. */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 14% -8%, color-mix(in srgb, var(--lq-green) 16%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 45% at 90% -4%, color-mix(in srgb, var(--lq-blue) 13%, transparent) 0%, transparent 55%),
+    linear-gradient(180deg, var(--lq-paper) 0%, #f1efe6 55%, var(--lq-paper) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Soft map-grid overlay — a faint municipal plan, low opacity, fades down. */
+.lociq::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(to right, rgba(26, 30, 36, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 30, 36, 0.04) 1px, transparent 1px),
+    linear-gradient(to right, rgba(26, 30, 36, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 30, 36, 0.025) 1px, transparent 1px);
+  /* Major blocks over a finer street grid. */
+  background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+  mask-image: radial-gradient(ellipse 110% 70% at 50% 0%, black, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 110% 70% at 50% 0%, black, transparent 78%);
+}
+
+.lociq > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Scoped focus — visible, green-ringed */
+.lociq a:focus-visible,
+.lociq button:focus-visible,
+.lociq input:focus-visible,
+.lociq select:focus-visible,
+.lociq textarea:focus-visible,
+.lociq [tabindex]:focus-visible {
+  outline: 2px solid var(--lq-green);
+  outline-offset: 3px;
+}
+
+/* Frosted civic panels */
+.lociq .lq-glass {
+  background: var(--lq-glass-bg);
+  border: 1px solid var(--lq-border);
+  box-shadow: var(--lq-shadow-sm);
+  -webkit-backdrop-filter: blur(16px) saturate(118%);
+  backdrop-filter: blur(16px) saturate(118%);
+}
+
+.lociq .lq-glass-strong {
+  background: var(--lq-glass-bg-strong);
+  border: 1px solid var(--lq-border-strong);
+  box-shadow: var(--lq-shadow-md);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  backdrop-filter: blur(22px) saturate(125%);
+}
+
+/* Travelling sheen used on the active civic stage / route. */
+@keyframes lq-shimmer {
+  0% { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+.lociq .lq-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in srgb, var(--lq-green) 55%, transparent) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: lq-shimmer 1.6s linear infinite;
+}
+
+/* Reduced motion — collapse transitions inside Lociq */
+@media (prefers-reduced-motion: reduce) {
+  .lociq *,
+  .lociq *::before,
+  .lociq *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

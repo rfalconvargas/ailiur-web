@@ -19,6 +19,18 @@ const APTELLUM_HOST = "aptellum.ailiur.com";
 // tayzt.ailiur.com — same pattern: subdomain root serves /tayzt.
 const TAYZT_HOST = "tayzt.ailiur.com";
 
+// tellumetry.ailiur.com — same pattern: subdomain root serves /tellumetry.
+const TELLUMETRY_HOST = "tellumetry.ailiur.com";
+
+// ucm.ailiur.com — same pattern: subdomain root serves /ucm.
+const UCM_HOST = "ucm.ailiur.com";
+
+// ollune.ailiur.com — same pattern: subdomain root serves /ollune.
+const OLLUNE_HOST = "ollune.ailiur.com";
+
+// lociq.ailiur.com — same pattern: subdomain root serves /lociq.
+const LOCIQ_HOST = "lociq.ailiur.com";
+
 const nextConfig: NextConfig = {
   turbopack: { root },
   outputFileTracingRoot: root,
@@ -44,6 +56,26 @@ const nextConfig: NextConfig = {
           source: "/",
           has: [{ type: "host", value: TAYZT_HOST }],
           destination: "/tayzt",
+        },
+        {
+          source: "/",
+          has: [{ type: "host", value: TELLUMETRY_HOST }],
+          destination: "/tellumetry",
+        },
+        {
+          source: "/",
+          has: [{ type: "host", value: UCM_HOST }],
+          destination: "/ucm",
+        },
+        {
+          source: "/",
+          has: [{ type: "host", value: OLLUNE_HOST }],
+          destination: "/ollune",
+        },
+        {
+          source: "/",
+          has: [{ type: "host", value: LOCIQ_HOST }],
+          destination: "/lociq",
         },
       ],
       afterFiles: [],
@@ -71,6 +103,34 @@ const nextConfig: NextConfig = {
         // Tayzt subdomain: non-root paths (except assets) → main site.
         source: "/:path((?!_next/).+)",
         has: [{ type: "host", value: TAYZT_HOST }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      },
+      {
+        // Tellumetry subdomain: non-root paths (except assets) → main site.
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host", value: TELLUMETRY_HOST }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      },
+      {
+        // UCM subdomain: non-root paths (except assets) → main site.
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host", value: UCM_HOST }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      },
+      {
+        // Ollune subdomain: non-root paths (except assets) → main site.
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host", value: OLLUNE_HOST }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      },
+      {
+        // Lociq subdomain: non-root paths (except assets) → main site.
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host", value: LOCIQ_HOST }],
         destination: "https://ailiur.com/:path",
         permanent: false,
       },
