@@ -20,7 +20,7 @@ const STATS = [
 const QUOTES = [
   {
     quote:
-      'Ketofy and Enchiridion finally feel like one product. My energy data shows up in how I study — it just compounds.',
+      'Qetos and Enchiridion finally feel like one product. My energy data shows up in how I study — it just compounds.',
     name: 'Dr. Lena Ortiz',
     role: 'Metabolic researcher',
   },

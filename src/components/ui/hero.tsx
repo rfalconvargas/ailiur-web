@@ -18,7 +18,7 @@ const rise: Variants = {
 };
 
 type LaunchProps = {
-  product: 'Enchiridion' | 'Ketofy';
+  product: 'Enchiridion' | 'Qetos';
   href: string;
   logo: string;
   accentVar: string; // CSS color var, e.g. var(--enchiridion)
@@ -78,8 +78,8 @@ export function Hero() {
         >
           The operating system
           <br />
-          for a{' '}
-          <span className="font-[200] italic">frictionless</span> life.
+          for human{' '}
+          <span className="font-[200] italic">flourishing</span>.
         </motion.h1>
 
         {/* Subtitle */}
@@ -88,7 +88,7 @@ export function Hero() {
           className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-foreground/70 sm:text-lg"
         >
           Ailiur unifies your health, learning, and focus into one local-first
-          system. Ketofy and Enchiridion, connected by the Context Mesh — so
+          system. Qetos and Enchiridion, connected by the Context Mesh — so
           every part of your life compounds.
         </motion.p>
 
@@ -120,14 +120,14 @@ export function Hero() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <LaunchButton
               product="Enchiridion"
-              href="https://www.enchiridion.ailiur.com"
-              logo="/enchiridion-logo.jpg"
+              href="https://enchiridion.ailiur.com"
+              logo="/enchiridion-logo-2024.jpg"
               accentVar="var(--enchiridion)"
             />
             <LaunchButton
-              product="Ketofy"
-              href="https://www.ketofy.ailiur.com"
-              logo="/ketofy-logo.jpg"
+              product="Qetos"
+              href="https://qetos.ailiur.com"
+              logo="/qetos-app-05-2026.png"
               accentVar="var(--ketofy)"
             />
           </div>

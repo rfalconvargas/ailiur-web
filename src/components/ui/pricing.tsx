@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { SmartLink } from '@/components/ui/smart-link';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
-const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
+const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 const rise: Variants = {
   hidden: { opacity: 0, y: 28 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOut } },
@@ -15,60 +15,113 @@ const rise: Variants = {
 
 type Tier = {
   name: string;
-  priceMonthly: number;
-  priceAnnual: number; // per month, billed annually
+  // Per-month price. `null` means custom / contact-sales pricing.
+  priceMonthly: number | null;
+  priceAnnual: number | null;
+  headline: string;
   blurb: string;
   features: string[];
   cta: string;
   href: string;
   featured?: boolean;
+  badge?: string;
 };
 
 // Illustrative pricing — confirm tiers and amounts before launch.
 const TIERS: Tier[] = [
   {
-    name: 'Free',
-    priceMonthly: 0,
-    priceAnnual: 0,
-    blurb: 'Start with one app and the local Context Mesh.',
-    features: ['Ketofy or Enchiridion', 'Local-first storage', 'Core closed-loop tuning'],
-    cta: 'Get started',
-    href: '/signup',
-  },
-  {
-    name: 'Pro',
-    priceMonthly: 19,
-    priceAnnual: 15,
-    blurb: 'The full ecosystem, fully connected.',
+    name: 'Core',
+    priceMonthly: 15,
+    priceAnnual: 12,
+    headline: 'Start with one Ailiur tool.',
+    blurb: 'Choose one focused product and build your first personal context layer.',
     features: [
-      'Ketofy + Enchiridion',
-      'Unified Context Mesh',
-      'Advanced closed-loop targets',
-      'Priority sync & support',
+      'One consumer product: Enchiridion, Qetos, Oruvo, Retellum, Tayzt, or Tellumetry',
+      'Personal local-first storage',
+      'Basic Unified Context Mesh memory',
+      'Standard AI usage',
+      'One workspace',
+      'Export your data anytime',
     ],
-    cta: 'Start Pro',
-    href: '/signup?plan=pro',
-    featured: true,
+    cta: 'Start Core',
+    href: '/signup?plan=core',
   },
   {
-    name: 'Founder',
-    priceMonthly: 0,
-    priceAnnual: 0,
-    blurb: 'Pay once. Own it for life.',
-    features: ['Everything in Pro', 'Lifetime license', 'Full data sovereignty', 'Early access to new apps'],
-    cta: 'Buy lifetime',
-    href: '/signup?plan=founder',
+    name: 'Mesh',
+    priceMonthly: 50,
+    priceAnnual: 40,
+    headline: 'The full personal ecosystem.',
+    blurb: 'Connect every Ailiur consumer app into one intelligent daily system.',
+    features: [
+      'All consumer products',
+      'Cross-app Unified Context Mesh',
+      'Higher AI usage limits',
+      'Multi-device sync',
+      'Personal automations between apps',
+      'Priority product updates',
+      'Connected insights across learning, health, media, money, and creation',
+    ],
+    cta: 'Start Mesh',
+    href: '/signup?plan=mesh',
+    featured: true,
+    badge: 'Most popular',
+  },
+  {
+    name: 'Operator',
+    priceMonthly: 150,
+    priceAnnual: 120,
+    headline: 'For serious builders and power users.',
+    blurb: 'Ailiur as your daily operating system for research, creation, and execution.',
+    features: [
+      'Everything in Mesh',
+      'Highest consumer AI limits',
+      'Advanced agents and workflows',
+      'Advanced Tayzt and Tellumetry tools',
+      'Unlimited projects and knowledge graphs',
+      'Model routing and cost controls',
+      'API / export tools',
+      'Early access to Iris-style interfaces',
+      'Premium support',
+    ],
+    cta: 'Start Operator',
+    href: '/signup?plan=operator',
+  },
+  {
+    name: 'Enterprise',
+    priceMonthly: null,
+    priceAnnual: null,
+    headline: 'For institutions, providers, advisors, and teams.',
+    blurb:
+      'Deploy Ailiur infrastructure across organizations with custom controls, analytics, and integrations.',
+    features: [
+      'Civis',
+      'Iris',
+      'Aptellum',
+      'Qetos Provider',
+      'Enchiridion Institution',
+      'Oruvo Advisors',
+      'Unified Context Mesh API',
+      'Admin controls, SSO, audit logs',
+      'Custom integrations and deployment support',
+    ],
+    cta: 'Contact us',
+    href: '/contact',
   },
 ];
 
-const FOUNDER_PRICE = 499;
+const GUIDE: { name: string; line: string }[] = [
+  { name: 'Core', line: 'I want one app.' },
+  { name: 'Mesh', line: 'I want the full connected ecosystem.' },
+  { name: 'Operator', line: 'I use Ailiur for serious daily work.' },
+  { name: 'Enterprise', line: 'I need Ailiur for an organization.' },
+];
 
 export function Pricing() {
-  const [annual, setAnnual] = useState(true);
+  const [annual, setAnnual] = useState(false);
 
   return (
     <section id="pricing" className="relative w-full px-4 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           variants={container}
           initial="hidden"
@@ -86,8 +139,11 @@ export function Pricing() {
             variants={rise}
             className="mt-3 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.08] tracking-tight text-foreground"
           >
-            One system. Simple pricing.
+            One ecosystem. Simple pricing.
           </motion.h2>
+          <motion.p variants={rise} className="mt-4 text-[15px] text-foreground/60">
+            Three consumer plans for the full Ailiur ecosystem — plus Enterprise for teams.
+          </motion.p>
 
           {/* Billing toggle */}
           <motion.div
@@ -118,13 +174,12 @@ export function Pricing() {
           variants={container}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3"
+          viewport={{ once: true, amount: 0.15 }}
+          className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
         >
           {TIERS.map((tier) => {
-            const isFounder = tier.name === 'Founder';
-            const price = isFounder ? FOUNDER_PRICE : annual ? tier.priceAnnual : tier.priceMonthly;
-            const unit = isFounder ? 'once' : '/mo';
+            const price = annual ? tier.priceAnnual : tier.priceMonthly;
+            const custom = price === null;
             return (
               <motion.div
                 key={tier.name}
@@ -132,26 +187,33 @@ export function Pricing() {
                 whileHover={{ y: -6 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 24 }}
                 className={cn(
-                  'relative flex flex-col rounded-[var(--radius-card)] p-8',
-                  tier.featured
-                    ? 'glass-strong ring-2 ring-accent-green'
-                    : 'glass'
+                  'relative flex flex-col rounded-[var(--radius-card)] p-7',
+                  tier.featured ? 'glass-strong ring-2 ring-accent-green lg:-my-2' : 'glass'
                 )}
               >
-                {tier.featured && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent-green px-3 py-1 text-xs font-semibold text-[#fffdf5]">
-                    Most popular
+                {tier.badge && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent-green px-3 py-1 text-xs font-semibold text-[#fffdf5]">
+                    {tier.badge}
                   </span>
                 )}
                 <h3 className="font-display text-2xl font-extrabold tracking-tight text-foreground">
                   {tier.name}
                 </h3>
-                <p className="mt-1 text-sm text-foreground/60">{tier.blurb}</p>
+                <p className="mt-1 text-[15px] font-semibold text-foreground/85">{tier.headline}</p>
+                <p className="mt-1.5 text-sm text-foreground/60">{tier.blurb}</p>
                 <div className="mt-5 flex items-baseline gap-1">
-                  <span className="font-display text-5xl font-extrabold tracking-tight text-foreground">
-                    ${price}
-                  </span>
-                  <span className="text-sm text-foreground/55">{unit}</span>
+                  {custom ? (
+                    <span className="font-display text-4xl font-extrabold tracking-tight text-foreground">
+                      Custom
+                    </span>
+                  ) : (
+                    <>
+                      <span className="font-display text-5xl font-extrabold tracking-tight text-foreground">
+                        ${price}
+                      </span>
+                      <span className="text-sm text-foreground/55">/mo</span>
+                    </>
+                  )}
                 </div>
                 <ul className="mt-6 flex-1 space-y-3">
                   {tier.features.map((f) => (
@@ -165,9 +227,7 @@ export function Pricing() {
                   href={tier.href}
                   className={cn(
                     'mt-8 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5',
-                    tier.featured
-                      ? 'bg-accent-green text-[#fffdf5]'
-                      : 'bg-foreground text-[#fffdf5]'
+                    tier.featured ? 'bg-accent-green text-[#fffdf5]' : 'bg-foreground text-[#fffdf5]'
                   )}
                 >
                   {tier.cta}
@@ -175,6 +235,45 @@ export function Pricing() {
               </motion.div>
             );
           })}
+        </motion.div>
+
+        {/* Founding member banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.5, ease: easeOut }}
+          className="glass mx-auto mt-6 flex max-w-2xl items-center justify-center gap-2 rounded-full px-5 py-3 text-center text-sm text-foreground/75"
+        >
+          <span className="font-semibold text-foreground">Founding Member</span>
+          <span className="text-foreground/40">·</span>
+          <span>lock in 40% off your plan forever for early supporters.</span>
+        </motion.div>
+
+        {/* Plan guide */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: easeOut }}
+          className="mx-auto mt-16 max-w-5xl"
+        >
+          <h3 className="text-center font-display text-xl font-extrabold tracking-tight text-foreground">
+            Which plan is right for me?
+          </h3>
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {GUIDE.map((g) => (
+              <div
+                key={g.name}
+                className="glass flex flex-col gap-1 rounded-[var(--radius-card)] px-5 py-4"
+              >
+                <span className="text-xs font-semibold uppercase tracking-widest text-foreground/45">
+                  {g.name}
+                </span>
+                <span className="text-[15px] text-foreground/80">“{g.line}”</span>
+              </div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

@@ -4,8 +4,11 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Menu, X } from 'lucide-react';
+import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { SmartLink } from '@/components/ui/smart-link';
+
+type SessionUser = { name?: string | null; email?: string | null; image?: string | null };
 
 type NavLeaf = { label: string; href: string; desc?: string; logo?: string };
 type NavGroup = { title?: string; href?: string; items?: NavLeaf[] };
@@ -18,29 +21,44 @@ const MENUS: NavMenu[] = [
       {
         items: [
           {
-            label: 'Ketofy App',
-            href: 'https://www.ketofy.ailiur.com',
-            desc: 'Functional metabolic concierge',
-            logo: '/ketofy-logo.jpg',
+            label: 'Enchiridion',
+            href: 'https://www.enchiridion.ailiur.com',
+            logo: '/enchiridion-logo-2024.jpg',
           },
           {
-            label: 'Enchiridion App',
-            href: 'https://www.enchiridion.ailiur.com',
-            desc: 'Cognitive acquisition engine',
-            logo: '/enchiridion-logo.jpg',
+            label: 'Qetos',
+            href: 'https://qetos.ailiur.com',
+            logo: '/qetos-app-05-2026.png',
           },
-        ],
-      },
-    ],
-    cta: { label: 'Operating System for Life', href: '/products' },
-  },
-  {
-    label: 'Solutions',
-    groups: [
-      {
-        items: [
-          { label: 'Students & Teachers', href: '/solutions/education', desc: 'Learn and teach faster' },
-          { label: 'Ketogenic Therapy', href: '/solutions/keto-therapy', desc: 'Clinical metabolic protocols' },
+          {
+            label: 'Oruvo',
+            href: 'https://oruvo.ailiur.com',
+            logo: '/oruvo-logo-06-2026.png',
+          },
+          {
+            label: 'Ollune',
+            href: 'https://ollune.ailiur.com',
+          },
+          {
+            label: 'Retellum',
+            href: 'https://retellum.ailiur.com',
+            logo: '/retellum-05-2026.png',
+          },
+          {
+            label: 'Tayzt',
+            href: 'https://tayzt.ailiur.com',
+            logo: '/tayzt-05-2026.png',
+          },
+          {
+            label: 'Tellumetry',
+            href: 'https://tellumetry.ailiur.com',
+            logo: '/tellumetry-05-2026.png',
+          },
+          {
+            label: 'Enterprise Suite',
+            href: '/contact',
+            logo: '/enterprise-suite.png',
+          },
         ],
       },
     ],
@@ -49,11 +67,7 @@ const MENUS: NavMenu[] = [
     label: 'Resources',
     groups: [
       {
-        items: [
-          { label: 'Blog', href: '/blog' },
-          { label: 'Perks', href: '/perks' },
-          { label: 'Tools', href: '/tools' },
-        ],
+        items: [{ label: 'Blog', href: '/blog' }],
       },
     ],
     cta: { label: 'Product Releases', href: '/releases' },
@@ -65,7 +79,6 @@ const MENUS: NavMenu[] = [
       {
         title: 'Connect',
         items: [
-          { label: 'Events', href: '/events' },
           { label: 'Partnerships', href: '/partnerships' },
           { label: 'Careers', href: '/careers' },
         ],
@@ -75,7 +88,6 @@ const MENUS: NavMenu[] = [
         items: [
           { label: 'Help Center', href: '/help' },
           { label: 'FAQs', href: '/faqs' },
-          { label: 'Switch to Ailiur', href: '/switch' },
         ],
       },
     ],
@@ -92,7 +104,7 @@ function Dropdown({ menu }: { menu: NavMenu }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 8, scale: 0.98 }}
       transition={{ duration: 0.18, ease: easeOut }}
-      className="glass-strong absolute left-1/2 top-full z-50 mt-3 w-[300px] -translate-x-1/2 rounded-[var(--radius-card)] p-2"
+      className="glass-solid absolute left-1/2 top-full z-50 mt-3 w-[300px] -translate-x-1/2 rounded-[var(--radius-card)] p-2"
     >
       {menu.groups.map((group, gi) => (
         <div key={gi} className={cn(gi > 0 && 'mt-1 border-t border-white/40 pt-1')}>
@@ -147,9 +159,62 @@ function Dropdown({ menu }: { menu: NavMenu }) {
   );
 }
 
+function AccountMenu({ user }: { user: SessionUser }) {
+  const [open, setOpen] = useState(false);
+  const label = user.name ?? user.email ?? 'Account';
+  return (
+    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button
+        className="flex items-center rounded-full p-0.5 transition-transform hover:-translate-y-0.5"
+        aria-label="Account menu"
+        aria-expanded={open}
+      >
+        {user.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={user.image}
+            alt={label}
+            referrerPolicy="no-referrer"
+            className="h-9 w-9 rounded-full object-cover ring-2 ring-white/60"
+          />
+        ) : (
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-sm font-semibold text-[#fffdf5]">
+            {label.charAt(0).toUpperCase()}
+          </span>
+        )}
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+            transition={{ duration: 0.18, ease: easeOut }}
+            className="glass-solid absolute right-0 top-full z-50 mt-3 w-60 rounded-[var(--radius-card)] p-2"
+          >
+            <div className="px-3 py-2">
+              <p className="truncate text-sm font-semibold text-foreground">{user.name ?? 'Signed in'}</p>
+              {user.email && <p className="truncate text-xs text-foreground/55">{user.email}</p>}
+            </div>
+            <div className="my-1 border-t border-white/40" />
+            <button
+              onClick={() => signOut({ callbackUrl: '/' })}
+              className="block w-full rounded-2xl px-3 py-2 text-left text-sm font-medium text-foreground transition-colors hover:bg-white/50"
+            >
+              Sign out
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export function SiteNav() {
   const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { data: session } = useSession();
+  const user = session?.user;
 
   return (
     <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4">
@@ -208,18 +273,24 @@ export function SiteNav() {
 
         {/* Right actions */}
         <div className="hidden items-center gap-2 lg:flex">
-          <SmartLink
-            href="/login"
-            className="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-          >
-            Log In
-          </SmartLink>
-          <SmartLink
-            href="/signup"
-            className="rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-[#fffdf5] transition-transform hover:-translate-y-0.5"
-          >
-            Create Account
-          </SmartLink>
+          {user ? (
+            <AccountMenu user={user} />
+          ) : (
+            <>
+              <SmartLink
+                href="/login"
+                className="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+              >
+                Log In
+              </SmartLink>
+              <SmartLink
+                href="/signup"
+                className="rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-[#fffdf5] transition-transform hover:-translate-y-0.5"
+              >
+                Create Account
+              </SmartLink>
+            </>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -240,7 +311,7 @@ export function SiteNav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2, ease: easeOut }}
-            className="glass-strong pointer-events-auto absolute inset-x-4 top-20 max-h-[75vh] overflow-y-auto rounded-[var(--radius-card)] p-4 lg:hidden"
+            className="glass-solid pointer-events-auto absolute inset-x-4 top-20 max-h-[75vh] overflow-y-auto rounded-[var(--radius-card)] p-4 lg:hidden"
           >
             {MENUS.map((menu) => (
               <div key={menu.label} className="border-b border-white/40 py-2 last:border-0">
@@ -274,20 +345,45 @@ export function SiteNav() {
             >
               Pricing
             </SmartLink>
-            <div className="mt-2 flex gap-2">
-              <SmartLink
-                href="/login"
-                className="flex-1 rounded-full border border-white/60 px-4 py-2.5 text-center text-sm font-medium"
-              >
-                Log In
-              </SmartLink>
-              <SmartLink
-                href="/signup"
-                className="flex-1 rounded-full bg-foreground px-4 py-2.5 text-center text-sm font-semibold text-[#fffdf5]"
-              >
-                Create Account
-              </SmartLink>
-            </div>
+            {user ? (
+              <div className="mt-2 flex items-center justify-between gap-3 rounded-xl px-2 py-2">
+                <div className="flex min-w-0 items-center gap-2.5">
+                  {user.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={user.image}
+                      alt=""
+                      referrerPolicy="no-referrer"
+                      className="h-9 w-9 shrink-0 rounded-full object-cover"
+                    />
+                  ) : null}
+                  <span className="truncate text-sm font-medium text-foreground">
+                    {user.name ?? user.email}
+                  </span>
+                </div>
+                <button
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="shrink-0 rounded-full border border-white/60 px-4 py-2 text-sm font-medium"
+                >
+                  Sign out
+                </button>
+              </div>
+            ) : (
+              <div className="mt-2 flex gap-2">
+                <SmartLink
+                  href="/login"
+                  className="flex-1 rounded-full border border-white/60 px-4 py-2.5 text-center text-sm font-medium"
+                >
+                  Log In
+                </SmartLink>
+                <SmartLink
+                  href="/signup"
+                  className="flex-1 rounded-full bg-foreground px-4 py-2.5 text-center text-sm font-semibold text-[#fffdf5]"
+                >
+                  Create Account
+                </SmartLink>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

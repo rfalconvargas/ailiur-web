@@ -40,7 +40,7 @@ PAGES = {
     },
     "solutions/mobile-first": {
         "eyebrow": "Solutions", "title": "Mobile-First Design",
-        "description": "Intuitive, mobile-first human-computer interactions that translate multilayered technical systems into frictionless, beautiful experiences.",
+        "description": "Intuitive, mobile-first human-computer interactions that translate multilayered technical systems into seamless, beautiful experiences.",
     },
     "blog": {"eyebrow": "Resources", "title": "Blog",
         "description": "Field notes on human optimization, local-first AI, metabolic health, and building the Ailiur ecosystem.", "note": "First posts coming soon"},

@@ -3,7 +3,7 @@ import { PlaceholderPage, makeMetadata, type PlaceholderContent } from '@/compon
 const content: PlaceholderContent = {
   "eyebrow": "Solutions",
   "title": "Mobile-First Design",
-  "description": "Intuitive, mobile-first human-computer interactions that translate multilayered technical systems into frictionless, beautiful experiences."
+  "description": "Intuitive, mobile-first human-computer interactions that translate multilayered technical systems into seamless, beautiful experiences."
 };
 
 export const metadata = makeMetadata(content);

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SiteNav } from "@/components/ui/site-nav";
 import { SiteFooter } from "@/components/ui/site-footer";
+import { Providers } from "@/components/providers";
 
 // Editorial serif for titles/display.
 const editorial = localFont({
@@ -23,9 +24,9 @@ const rounded = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Ailiur — The operating system for a frictionless life",
+  title: "Ailiur",
   description:
-    "Ailiur is the operating system for a frictionless life. Ketofy and Enchiridion, unified locally by the Context Mesh.",
+    "Ailiur is the operating system for human flourishing. Qetos and Enchiridion, unified locally by the Context Mesh.",
 };
 
 export default function RootLayout({
@@ -39,9 +40,11 @@ export default function RootLayout({
       className={`${editorial.variable} ${rounded.variable} h-full antialiased`}
     >
       <body className="min-h-full">
-        <SiteNav />
-        {children}
-        <SiteFooter />
+        <Providers>
+          <SiteNav />
+          {children}
+          <SiteFooter />
+        </Providers>
       </body>
     </html>
   );

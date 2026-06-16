@@ -3,7 +3,7 @@ import { Pricing } from '@/components/ui/pricing';
 
 export const metadata: Metadata = {
   title: 'Pricing — Ailiur',
-  description: 'One system. Simple pricing. Free, Pro, and Founder plans for the Ailiur ecosystem.',
+  description: 'One ecosystem. Simple pricing. Core, Mesh, and Operator consumer plans plus Enterprise for the Ailiur ecosystem.',
 };
 
 export default function PricingPage() {

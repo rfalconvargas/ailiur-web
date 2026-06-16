@@ -15,7 +15,7 @@ const rise: Variants = {
 const FAQS = [
   {
     q: 'What exactly is Ailiur?',
-    a: 'Ailiur is an operating system for a frictionless life. Its apps — Ketofy for metabolic health and Enchiridion for learning — run on a shared, local-first Context Mesh, so progress in one part of your life informs the rest.',
+    a: 'Ailiur is the operating system for human flourishing. Its apps — Qetos for metabolic health and Enchiridion for learning — run on a shared, local-first Context Mesh, so progress in one part of your life informs the rest.',
   },
   {
     q: 'What is the Unified Context Mesh?',
@@ -27,11 +27,7 @@ const FAQS = [
   },
   {
     q: 'Do I need both apps to get value?',
-    a: 'No. Start with either Ketofy or Enchiridion on the Free plan. The Mesh simply makes them better together when you add the second.',
-  },
-  {
-    q: 'Can I switch from another tool?',
-    a: 'Yes — “Switch to Ailiur” walks you through importing your existing data and protocols so you can move over without losing history.',
+    a: 'No. Start with either Qetos or Enchiridion on the Core plan. The Mesh simply makes them better together when you add the second.',
   },
 ];
 

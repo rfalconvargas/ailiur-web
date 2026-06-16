@@ -67,7 +67,7 @@ export function Features() {
             One context. Every part of your life.
           </motion.h2>
           <motion.p variants={rise} className="mt-4 text-base text-foreground/65 sm:text-lg">
-            Ketofy and Enchiridion are different surfaces of the same operating
+            Qetos and Enchiridion are different surfaces of the same operating
             system — quietly connected underneath.
           </motion.p>
         </motion.div>

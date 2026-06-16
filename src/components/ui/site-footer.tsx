@@ -7,11 +7,14 @@ const COLUMNS: { title: string; links: Link[] }[] = [
   {
     title: 'Products',
     links: [
-      { label: 'Ketofy App', href: 'https://www.ketofy.ailiur.com' },
       { label: 'Enchiridion App', href: 'https://www.enchiridion.ailiur.com' },
+      { label: 'Qetos App', href: 'https://qetos.ailiur.com' },
+      { label: 'Oruvo App', href: 'https://oruvo.ailiur.com' },
+      { label: 'Ollune', href: 'https://ollune.ailiur.com' },
+      { label: 'Retellum App', href: 'https://retellum.ailiur.com' },
+      { label: 'Tayzt App', href: 'https://tayzt.ailiur.com' },
+      { label: 'Tellumetry App', href: 'https://tellumetry.ailiur.com' },
       { label: 'Operating System for Life', href: '/products' },
-      { label: 'Doblu App', href: '/products/doblu' },
-      { label: 'Retellum App', href: '/retellum' },
     ],
   },
   {
@@ -73,7 +76,6 @@ const ABOUT = {
       links: [
         { label: 'Help Center', href: '/help' },
         { label: 'FAQs', href: '/faqs' },
-        { label: 'Switch to Ailiur', href: '/switch' },
       ],
     },
   ],
@@ -157,7 +159,7 @@ export function SiteFooter() {
               className="h-8 w-8 rounded-lg object-cover"
             />
             <span className="text-sm text-foreground/60">
-              © {new Date().getFullYear()} Ailiur. The operating system for a frictionless life.
+              © {new Date().getFullYear()} Ailiur. The operating system for human flourishing.
             </span>
           </div>
           <div className="flex items-center gap-4">
