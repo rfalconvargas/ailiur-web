@@ -1,0 +1,137 @@
+/**
+ * Ollune sub-brand tokens — scoped to `.ollune` only.
+ * Imported by OlluneShell; does not alter global Ailiur (yellow) pages.
+ *
+ * Ollune is the AI OS layer of Ailiur: a calm, dark, spatial surface.
+ * Palette — deep graphite/near-black ground, muted cream + moonlit silver
+ * type, soft green primary, and Ailiur red/yellow as the rarest of accents.
+ */
+
+.ollune {
+  /* Ground */
+  --ol-ink: #090b0f;
+  --ol-ink-soft: #0e1117;
+  --ol-graphite: #141821;
+  --ol-graphite-soft: #1b202b;
+
+  /* Type */
+  --ol-cream: #ece6d8;
+  --ol-cream-soft: #cfc8ba;
+  --ol-silver: #99a2b1;
+  --ol-silver-dim: #6a7180;
+
+  /* Accents */
+  --ol-green: #51c98f;
+  --ol-green-soft: #7ad9aa;
+  --ol-green-deep: #1fa85c;
+  --ol-red: #e5564a;
+  --ol-yellow: #ffd60a;
+
+  /* Glass surfaces (light film over dark ground) */
+  --ol-glass-bg: rgba(255, 255, 255, 0.035);
+  --ol-glass-bg-strong: rgba(255, 255, 255, 0.06);
+  --ol-glass-bg-solid: rgba(20, 24, 33, 0.92);
+  --ol-border: rgba(255, 255, 255, 0.08);
+  --ol-border-strong: rgba(255, 255, 255, 0.16);
+
+  /* Depth — spatial shadows + inner highlight */
+  --ol-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.28);
+  --ol-shadow-md: 0 16px 48px rgba(0, 0, 0, 0.4);
+  --ol-shadow-lg: 0 32px 80px rgba(0, 0, 0, 0.5);
+  --ol-glow-green: 0 0 0 1px rgba(81, 201, 143, 0.12), 0 24px 64px rgba(31, 168, 92, 0.16);
+  --ol-inner-hi: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* Radius */
+  --ol-radius-sm: 12px;
+  --ol-radius-md: 18px;
+  --ol-radius-lg: 26px;
+  --ol-radius-xl: 34px;
+  --ol-radius-pill: 9999px;
+
+  /* Type scale */
+  --ol-text-display: clamp(2.75rem, 6.5vw, 5rem);
+  --ol-text-h1: clamp(2.1rem, 4.5vw, 3.4rem);
+  --ol-text-h2: clamp(1.6rem, 3.2vw, 2.4rem);
+  --ol-text-body: 1.0625rem;
+  --ol-text-small: 0.8125rem;
+
+  /* Rhythm */
+  --ol-section-y: clamp(5rem, 11vw, 9rem);
+  --ol-content-max: 72rem;
+
+  color: var(--ol-cream);
+  background-color: var(--ol-ink);
+  /* Subtle mesh: a soft green dawn up-left, a moonlit silver wash up-right,
+     settling into near-black. No purple, no neon. */
+  background-image:
+    radial-gradient(ellipse 70% 55% at 12% -10%, rgba(31, 168, 92, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 88% 0%, rgba(154, 162, 178, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 60% at 50% 115%, rgba(20, 24, 33, 0.9) 0%, transparent 60%),
+    linear-gradient(180deg, var(--ol-ink) 0%, var(--ol-ink-soft) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Faint starfield-grid texture, masked to fade downward. */
+.ollune::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image:
+    linear-gradient(var(--ol-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ol-border) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
+}
+
+.ollune > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Visible, green-ringed focus for accessibility on dark. */
+.ollune a:focus-visible,
+.ollune button:focus-visible,
+.ollune input:focus-visible,
+.ollune textarea:focus-visible,
+.ollune [tabindex]:focus-visible {
+  outline: 2px solid var(--ol-green);
+  outline-offset: 3px;
+}
+
+/* Glass panels */
+.ollune .ol-glass {
+  background: var(--ol-glass-bg);
+  border: 1px solid var(--ol-border);
+  box-shadow: var(--ol-shadow-sm), var(--ol-inner-hi);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  backdrop-filter: blur(20px) saturate(130%);
+}
+
+.ollune .ol-glass-strong {
+  background: var(--ol-glass-bg-strong);
+  border: 1px solid var(--ol-border-strong);
+  box-shadow: var(--ol-shadow-md), var(--ol-inner-hi);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  backdrop-filter: blur(28px) saturate(140%);
+}
+
+/* Hairline divider tuned for dark */
+.ollune .ol-hairline {
+  border-color: var(--ol-border);
+}
+
+/* Reduced motion — collapse transitions inside Ollune */
+@media (prefers-reduced-motion: reduce) {
+  .ollune *,
+  .ollune *::before,
+  .ollune *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
