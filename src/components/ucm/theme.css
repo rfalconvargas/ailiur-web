@@ -1,0 +1,153 @@
+/**
+ * Unified Context Mesh sub-brand tokens — scoped to `.ucm` only.
+ * Imported by UcmShell; does not alter the global Ailiur yellow pages.
+ *
+ * Direction: a calm, premium, infrastructure-grade memory layer. Warm
+ * near-black background, soft cream typography, thin hairlines, glassy panels,
+ * and a muted gold product accent. Ailiur tri-color signals (green / amber /
+ * red) and the three AI-source hues are used sparingly as quiet wayfinding.
+ */
+
+.ucm {
+  /* Core palette — warm, neutral instrument ink */
+  --ucm-ink: #0e0b08;
+  --ucm-charcoal: #17120d;
+  --ucm-charcoal-soft: #1d1812;
+  --ucm-cream: #f4efe5;
+  --ucm-cream-soft: #ddd5c6;
+  --ucm-sand: #a39a88;
+  --ucm-sand-dim: #74695a;
+
+  /* Product accent — muted gold leads */
+  --ucm-gold: #d8b170;
+  --ucm-gold-soft: #e7caa0;
+
+  /* AI-source hues — quiet wayfinding for the three silos */
+  --ucm-chatgpt: #6fcf97;
+  --ucm-claude: #e09a6a;
+  --ucm-gemini: #7fa6e0;
+
+  /* Ailiur tri-color signals — used sparingly */
+  --ucm-green: #69d98a;
+  --ucm-amber: #f2b35e;
+  --ucm-red: #ee6a5f;
+
+  /* Surfaces — glassy panels */
+  --ucm-glass-bg: rgba(29, 24, 18, 0.55);
+  --ucm-glass-bg-strong: rgba(29, 24, 18, 0.84);
+  --ucm-surface: #17120d;
+  --ucm-surface-muted: #120e0a;
+
+  /* Borders & depth */
+  --ucm-border: rgba(244, 239, 229, 0.1);
+  --ucm-border-strong: rgba(244, 239, 229, 0.18);
+  --ucm-hairline: rgba(244, 239, 229, 0.06);
+  --ucm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.38);
+  --ucm-shadow-md: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --ucm-shadow-glow: 0 0 0 1px var(--ucm-border-strong), 0 20px 60px rgba(0, 0, 0, 0.55);
+
+  /* Radius */
+  --ucm-radius-sm: 12px;
+  --ucm-radius-md: 16px;
+  --ucm-radius-lg: 24px;
+  --ucm-radius-xl: 32px;
+  --ucm-radius-pill: 9999px;
+
+  /* Type */
+  --ucm-text-display: clamp(2.75rem, 6.5vw, 5rem);
+  --ucm-text-h1: clamp(2rem, 4.5vw, 3.25rem);
+  --ucm-text-h2: clamp(1.5rem, 3vw, 2.125rem);
+  --ucm-text-body: 1.0625rem;
+  --ucm-text-small: 0.8125rem;
+
+  /* Spacing rhythm */
+  --ucm-section-y: clamp(5rem, 10vw, 8rem);
+  --ucm-content-max: 72rem;
+
+  color: var(--ucm-cream);
+  background-color: var(--ucm-ink);
+  /* Ambient glow: warm gold bleeding softly from the top, with a faint cool
+     counter-light so it never reads as a single flat wash. */
+  background-image:
+    radial-gradient(ellipse 85% 55% at 18% -10%, color-mix(in srgb, var(--ucm-gold) 14%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% -4%, color-mix(in srgb, var(--ucm-claude) 9%, transparent) 0%, transparent 55%),
+    linear-gradient(180deg, var(--ucm-ink) 0%, #110d09 55%, var(--ucm-ink) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Faint mesh overlay — covers the full scroll area, very low opacity. */
+.ucm::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.4;
+  background-image:
+    linear-gradient(to right, rgba(244, 239, 229, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244, 239, 229, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, black, transparent 75%);
+}
+
+.ucm > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Scoped focus — visible, gold-ringed */
+.ucm a:focus-visible,
+.ucm button:focus-visible,
+.ucm input:focus-visible,
+.ucm select:focus-visible,
+.ucm [tabindex]:focus-visible {
+  outline: 2px solid var(--ucm-gold);
+  outline-offset: 3px;
+}
+
+/* Glassy panels */
+.ucm .ucm-glass {
+  background: var(--ucm-glass-bg);
+  border: 1px solid var(--ucm-border);
+  box-shadow: var(--ucm-shadow-sm);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(16px) saturate(120%);
+}
+
+.ucm .ucm-glass-strong {
+  background: var(--ucm-glass-bg-strong);
+  border: 1px solid var(--ucm-border-strong);
+  box-shadow: var(--ucm-shadow-md);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+  backdrop-filter: blur(22px) saturate(130%);
+}
+
+/* Travelling sheen — used on the demo placeholder's pipeline hint. */
+@keyframes ucm-shimmer {
+  0% { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+.ucm .ucm-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in srgb, var(--ucm-gold) 55%, transparent) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: ucm-shimmer 2s linear infinite;
+}
+
+/* Reduced motion — collapse transitions inside UCM */
+@media (prefers-reduced-motion: reduce) {
+  .ucm *,
+  .ucm *::before,
+  .ucm *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
