@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
+import { ChevronDown, ChevronRight, Home, Menu, X } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { SmartLink } from '@/components/ui/smart-link';
@@ -345,6 +345,13 @@ export function SiteNav() {
 
         {/* Desktop menu */}
         <div className="hidden items-center gap-1 lg:flex">
+          <SmartLink
+            href="/"
+            className="flex items-center gap-1.5 rounded-full bg-foreground/[0.06] px-3.5 py-2 text-sm font-medium text-foreground ring-1 ring-foreground/10 transition-colors hover:bg-foreground/10"
+          >
+            <Home className="h-4 w-4" />
+            Home
+          </SmartLink>
           {MENUS.map((menu) => {
             const isProducts = menu.label === 'Products';
             return (
@@ -438,6 +445,13 @@ export function SiteNav() {
             transition={{ duration: 0.2, ease: easeOut }}
             className="glass-solid pointer-events-auto absolute inset-x-4 top-20 max-h-[75vh] overflow-y-auto rounded-[var(--radius-card)] p-4 lg:hidden"
           >
+            <SmartLink
+              href="/"
+              className="mb-1 flex items-center gap-2 rounded-xl bg-foreground/[0.06] px-2 py-2 text-sm font-medium text-foreground hover:bg-foreground/10"
+            >
+              <Home className="h-4 w-4" />
+              Home
+            </SmartLink>
             {MENUS.map((menu) => (
               <div key={menu.label} className="border-b border-white/40 py-2 last:border-0">
                 <p className="px-1 py-1 text-xs font-semibold uppercase tracking-wider text-foreground/50">
