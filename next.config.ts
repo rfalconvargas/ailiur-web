@@ -35,6 +35,21 @@ const LOCIQ_HOST = "lociq.ailiur.com";
 // (the wealth-intelligence product, "Oruvo by Ailiur").
 const ORUVO_HOST = "oruvo.ailiur.com";
 
+// Enterprise Suite — each enterprise app is served at its own subdomain root,
+// rewriting to /enterprise/<slug> (same lock-down pattern as the others).
+const ENTERPRISE_SUBS: { host: string; path: string }[] = [
+  { host: "enchiridionschools.ailiur.com", path: "/enterprise/enchiridion-schools" },
+  { host: "qetosclinics.ailiur.com", path: "/enterprise/qetos-clinics" },
+  { host: "oruvoadvisors.ailiur.com", path: "/enterprise/oruvo-advisors" },
+  { host: "olluneenterprise.ailiur.com", path: "/enterprise/ollune-enterprise" },
+  { host: "retellumstudios.ailiur.com", path: "/enterprise/retellum-studios" },
+  { host: "tayztstudios.ailiur.com", path: "/enterprise/tayzt-studios" },
+  { host: "tellumetryenterprise.ailiur.com", path: "/enterprise/tellumetry-enterprise" },
+  { host: "lociqcities.ailiur.com", path: "/enterprise/lociq-cities" },
+  { host: "ucmenterprise.ailiur.com", path: "/enterprise/ucm-enterprise" },
+  { host: "glyfrateams.ailiur.com", path: "/enterprise/glyfra-teams" },
+];
+
 const nextConfig: NextConfig = {
   turbopack: { root },
   outputFileTracingRoot: root,
@@ -86,6 +101,11 @@ const nextConfig: NextConfig = {
           has: [{ type: "host", value: ORUVO_HOST }],
           destination: "/oruvo",
         },
+        ...ENTERPRISE_SUBS.map((s) => ({
+          source: "/",
+          has: [{ type: "host" as const, value: s.host }],
+          destination: s.path,
+        })),
       ],
       afterFiles: [],
       fallback: [],
@@ -150,6 +170,12 @@ const nextConfig: NextConfig = {
         destination: "https://ailiur.com/:path",
         permanent: false,
       },
+      ...ENTERPRISE_SUBS.map((s) => ({
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host" as const, value: s.host }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      })),
     ];
   },
 };

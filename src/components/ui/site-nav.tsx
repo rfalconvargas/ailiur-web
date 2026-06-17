@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { SmartLink } from '@/components/ui/smart-link';
+import { ENTERPRISE_APPS } from '@/lib/enterprise';
 
 type SessionUser = { name?: string | null; email?: string | null; image?: string | null };
 
@@ -109,7 +110,28 @@ const MENUS: NavMenu[] = [
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
-function Dropdown({ menu }: { menu: NavMenu }) {
+function LetterChip({ label }: { label: string }) {
+  return (
+    <span
+      aria-hidden
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-foreground text-sm font-semibold text-[#fffdf5]"
+    >
+      {label.charAt(0).toUpperCase()}
+    </span>
+  );
+}
+
+function Dropdown({
+  menu,
+  entOpen,
+  onToggleEnt,
+  onNavigate,
+}: {
+  menu: NavMenu;
+  entOpen?: boolean;
+  onToggleEnt?: () => void;
+  onNavigate?: () => void;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 8, scale: 0.98 }}
@@ -134,36 +156,98 @@ function Dropdown({ menu }: { menu: NavMenu }) {
               </p>
             )
           )}
-          {group.items?.map((item) => (
-            <SmartLink
-              key={item.label}
-              href={item.href}
-              className="flex items-center gap-3 rounded-2xl px-3 py-2 transition-colors hover:bg-white/50"
-            >
-              {item.logo ? (
-                <Image
-                  src={item.logo}
-                  alt=""
-                  width={36}
-                  height={36}
-                  className="h-9 w-9 rounded-xl object-cover"
-                />
-              ) : (
-                <span
-                  aria-hidden
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-foreground text-sm font-semibold text-[#fffdf5]"
+          {group.items?.map((item) =>
+            item.label === 'Enterprise Suite' && onToggleEnt ? (
+              <div key={item.label} className="relative">
+                <button
+                  type="button"
+                  onClick={onToggleEnt}
+                  aria-expanded={entOpen}
+                  className="flex w-full items-center gap-3 rounded-2xl px-3 py-2 text-left transition-colors hover:bg-white/50"
                 >
-                  {item.label.charAt(0).toUpperCase()}
-                </span>
-              )}
-              <span>
-                <span className="block text-sm font-medium text-foreground">{item.label}</span>
-                {item.desc && (
-                  <span className="block text-xs text-foreground/55">{item.desc}</span>
+                  {item.logo ? (
+                    <Image
+                      src={item.logo}
+                      alt=""
+                      width={36}
+                      height={36}
+                      className="h-9 w-9 rounded-xl object-cover"
+                    />
+                  ) : (
+                    <LetterChip label={item.label} />
+                  )}
+                  <span className="flex-1">
+                    <span className="block text-sm font-medium text-foreground">
+                      {item.label}
+                    </span>
+                  </span>
+                  <ChevronRight
+                    className={cn(
+                      'h-4 w-4 shrink-0 text-foreground/50 transition-transform',
+                      entOpen && 'rotate-90'
+                    )}
+                  />
+                </button>
+                <AnimatePresence>
+                  {entOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -8, scale: 0.98 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: -8, scale: 0.98 }}
+                      transition={{ duration: 0.18, ease: easeOut }}
+                      className="glass-solid absolute bottom-0 left-full z-50 ml-2 max-h-[78vh] w-[280px] overflow-y-auto rounded-[var(--radius-card)] p-2"
+                    >
+                      <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-foreground/50">
+                        Enterprise Suite
+                      </p>
+                      {ENTERPRISE_APPS.map((app) => (
+                        <SmartLink
+                          key={app.slug}
+                          href={`https://${app.subdomain}`}
+                          onClick={onNavigate}
+                          className="flex items-center gap-3 rounded-2xl px-3 py-2 transition-colors hover:bg-white/50"
+                        >
+                          <LetterChip label={app.name} />
+                          <span>
+                            <span className="block text-sm font-medium text-foreground">
+                              {app.name}
+                            </span>
+                            <span className="block text-xs text-foreground/55">
+                              {app.audience}
+                            </span>
+                          </span>
+                        </SmartLink>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <SmartLink
+                key={item.label}
+                href={item.href}
+                className="flex items-center gap-3 rounded-2xl px-3 py-2 transition-colors hover:bg-white/50"
+              >
+                {item.logo ? (
+                  <Image
+                    src={item.logo}
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="h-9 w-9 rounded-xl object-cover"
+                  />
+                ) : (
+                  <LetterChip label={item.label} />
                 )}
-              </span>
-            </SmartLink>
-          ))}
+                <span>
+                  <span className="block text-sm font-medium text-foreground">{item.label}</span>
+                  {item.desc && (
+                    <span className="block text-xs text-foreground/55">{item.desc}</span>
+                  )}
+                </span>
+              </SmartLink>
+            )
+          )}
         </div>
       ))}
       {menu.cta && (
@@ -232,6 +316,7 @@ function AccountMenu({ user }: { user: SessionUser }) {
 export function SiteNav() {
   const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [entOpen, setEntOpen] = useState(false);
   const { data: session } = useSession();
   const user = session?.user;
 
@@ -260,28 +345,49 @@ export function SiteNav() {
 
         {/* Desktop menu */}
         <div className="hidden items-center gap-1 lg:flex">
-          {MENUS.map((menu) => (
-            <div
-              key={menu.label}
-              className="relative"
-              onMouseEnter={() => setOpen(menu.label)}
-              onMouseLeave={() => setOpen(null)}
-            >
-              <button
-                className="flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-                aria-expanded={open === menu.label}
+          {MENUS.map((menu) => {
+            const isProducts = menu.label === 'Products';
+            return (
+              <div
+                key={menu.label}
+                className="relative"
+                onMouseEnter={() => {
+                  setOpen(menu.label);
+                  if (!isProducts) setEntOpen(false);
+                }}
+                onMouseLeave={() => {
+                  // Keep Products open while the Enterprise Suite flyout is toggled.
+                  if (!(isProducts && entOpen)) setOpen(null);
+                }}
               >
-                {menu.label}
-                <ChevronDown
-                  className={cn(
-                    'h-3.5 w-3.5 transition-transform',
-                    open === menu.label && 'rotate-180'
+                <button
+                  className="flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+                  aria-expanded={open === menu.label}
+                >
+                  {menu.label}
+                  <ChevronDown
+                    className={cn(
+                      'h-3.5 w-3.5 transition-transform',
+                      open === menu.label && 'rotate-180'
+                    )}
+                  />
+                </button>
+                <AnimatePresence>
+                  {open === menu.label && (
+                    <Dropdown
+                      menu={menu}
+                      entOpen={isProducts ? entOpen : false}
+                      onToggleEnt={isProducts ? () => setEntOpen((v) => !v) : undefined}
+                      onNavigate={() => {
+                        setEntOpen(false);
+                        setOpen(null);
+                      }}
+                    />
                   )}
-                />
-              </button>
-              <AnimatePresence>{open === menu.label && <Dropdown menu={menu} />}</AnimatePresence>
-            </div>
-          ))}
+                </AnimatePresence>
+              </div>
+            );
+          })}
           <SmartLink
             href="/pricing"
             className="rounded-full px-3.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
@@ -339,15 +445,32 @@ export function SiteNav() {
                 </p>
                 {menu.groups
                   .flatMap((g) => g.items ?? (g.href ? [{ label: g.title!, href: g.href }] : []))
-                  .map((item) => (
-                    <SmartLink
-                      key={item.label}
-                      href={item.href}
-                      className="block rounded-xl px-2 py-2 text-sm font-medium text-foreground hover:bg-white/50"
-                    >
-                      {item.label}
-                    </SmartLink>
-                  ))}
+                  .map((item) =>
+                    item.label === 'Enterprise Suite' ? (
+                      <div key={item.label} className="mt-1">
+                        <p className="px-2 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-foreground/40">
+                          Enterprise Suite
+                        </p>
+                        {ENTERPRISE_APPS.map((app) => (
+                          <SmartLink
+                            key={app.slug}
+                            href={`https://${app.subdomain}`}
+                            className="block rounded-xl px-2 py-2 text-sm font-medium text-foreground hover:bg-white/50"
+                          >
+                            {app.name}
+                          </SmartLink>
+                        ))}
+                      </div>
+                    ) : (
+                      <SmartLink
+                        key={item.label}
+                        href={item.href}
+                        className="block rounded-xl px-2 py-2 text-sm font-medium text-foreground hover:bg-white/50"
+                      >
+                        {item.label}
+                      </SmartLink>
+                    )
+                  )}
                 {menu.cta && (
                   <SmartLink
                     href={menu.cta.href}
