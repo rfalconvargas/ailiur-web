@@ -31,6 +31,10 @@ const OLLUNE_HOST = "ollune.ailiur.com";
 // lociq.ailiur.com — same pattern: subdomain root serves /lociq.
 const LOCIQ_HOST = "lociq.ailiur.com";
 
+// oruvo.ailiur.com — same pattern: subdomain root serves /oruvo
+// (the wealth-intelligence product, "Oruvo by Ailiur").
+const ORUVO_HOST = "oruvo.ailiur.com";
+
 const nextConfig: NextConfig = {
   turbopack: { root },
   outputFileTracingRoot: root,
@@ -76,6 +80,11 @@ const nextConfig: NextConfig = {
           source: "/",
           has: [{ type: "host", value: LOCIQ_HOST }],
           destination: "/lociq",
+        },
+        {
+          source: "/",
+          has: [{ type: "host", value: ORUVO_HOST }],
+          destination: "/oruvo",
         },
       ],
       afterFiles: [],
@@ -131,6 +140,13 @@ const nextConfig: NextConfig = {
         // Lociq subdomain: non-root paths (except assets) → main site.
         source: "/:path((?!_next/).+)",
         has: [{ type: "host", value: LOCIQ_HOST }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      },
+      {
+        // Oruvo subdomain: non-root paths (except assets) → main site.
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host", value: ORUVO_HOST }],
         destination: "https://ailiur.com/:path",
         permanent: false,
       },

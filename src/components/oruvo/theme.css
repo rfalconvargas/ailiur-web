@@ -1,0 +1,156 @@
+/**
+ * Oruvo sub-brand tokens — scoped to `.oruvo` only.
+ * Imported by OruvoShell; does not alter the global Ailiur (yellow) pages.
+ *
+ * Oruvo is the wealth-intelligence app of Ailiur: a calm, warm, premium-fintech
+ * surface. Palette — warm off-white ground, deep ink/navy type, soft gold and
+ * a restrained green as the only accents, light glass panels, hairline borders.
+ */
+
+.oruvo {
+  /* Ground */
+  --or-paper: #f6f3ec;
+  --or-paper-soft: #fbf9f4;
+  --or-cloud: #ffffff;
+  --or-sand: #efeae0;
+
+  /* Type */
+  --or-ink: #161a20;
+  --or-ink-soft: #2a313b;
+  --or-slate: #5c6776;
+  /* Tertiary text. Darkened from #8a94a1 so small caption/helper text clears
+     WCAG AA (~4.5:1) on the warm paper / sand / white surfaces. */
+  --or-slate-dim: #646b79;
+
+  /* Accents */
+  --or-gold: #b08a4c;
+  --or-gold-soft: #caa468;
+  /* Darkened from #8f6e36 so small gold-deep label/pill text clears WCAG AA
+     (~4.5:1) on the gold-tint and paper surfaces it sits on. */
+  --or-gold-deep: #7d5f24;
+  --or-green: #2f7d5e;
+  --or-green-soft: #46a37c;
+  --or-red: #bd5448;
+
+  /* Tints (accent washes for chips/pills) */
+  --or-gold-tint: rgba(176, 138, 76, 0.12);
+  --or-green-tint: rgba(47, 125, 94, 0.12);
+  --or-red-tint: rgba(189, 84, 72, 0.1);
+
+  /* Glass surfaces (frosted white film over warm ground) */
+  --or-glass-bg: rgba(255, 255, 255, 0.55);
+  --or-glass-bg-strong: rgba(255, 255, 255, 0.78);
+  --or-border: rgba(22, 26, 32, 0.09);
+  --or-border-strong: rgba(22, 26, 32, 0.16);
+
+  /* Depth — soft, low, premium shadows */
+  --or-shadow-sm: 0 1px 2px rgba(22, 26, 32, 0.05), 0 6px 18px rgba(22, 26, 32, 0.06);
+  --or-shadow-md: 0 12px 36px rgba(22, 26, 32, 0.1);
+  --or-shadow-lg: 0 28px 64px rgba(22, 26, 32, 0.14);
+  --or-glow-gold: 0 0 0 1px rgba(176, 138, 76, 0.18), 0 16px 40px rgba(176, 138, 76, 0.18);
+  --or-inner-hi: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  /* Radius */
+  --or-radius-sm: 12px;
+  --or-radius-md: 18px;
+  --or-radius-lg: 26px;
+  --or-radius-xl: 34px;
+  --or-radius-pill: 9999px;
+
+  /* Type scale */
+  --or-text-display: clamp(2.6rem, 6vw, 4.6rem);
+  --or-text-h1: clamp(2rem, 4.2vw, 3.2rem);
+  --or-text-h2: clamp(1.5rem, 3vw, 2.2rem);
+  --or-text-body: 1.0625rem;
+  --or-text-small: 0.8125rem;
+
+  /* Rhythm */
+  --or-section-y: clamp(4.5rem, 10vw, 8rem);
+  --or-content-max: 72rem;
+
+  color: var(--or-ink);
+  background-color: var(--or-paper);
+  /* Warm paper with a faint gold dawn up-left and a cool slate wash up-right. */
+  background-image:
+    radial-gradient(ellipse 64% 50% at 10% -8%, rgba(202, 164, 104, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 56% 46% at 92% 0%, rgba(70, 163, 124, 0.1) 0%, transparent 58%),
+    linear-gradient(180deg, var(--or-paper) 0%, var(--or-paper-soft) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hairline dot-grid texture, masked to fade downward. */
+.oruvo::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(22, 26, 32, 0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 60%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 60%);
+}
+
+.oruvo > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Visible, gold-ringed focus for accessibility. */
+.oruvo a:focus-visible,
+.oruvo button:focus-visible,
+.oruvo input:focus-visible,
+.oruvo select:focus-visible,
+.oruvo textarea:focus-visible,
+.oruvo [tabindex]:focus-visible {
+  outline: 2px solid var(--or-gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* All currency / figures align as tabular numerals. */
+.oruvo .or-num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Glass panels */
+.oruvo .or-glass {
+  background: var(--or-glass-bg);
+  border: 1px solid var(--or-border);
+  box-shadow: var(--or-shadow-sm), var(--or-inner-hi);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  backdrop-filter: blur(18px) saturate(120%);
+}
+
+.oruvo .or-glass-strong {
+  background: var(--or-glass-bg-strong);
+  border: 1px solid var(--or-border-strong);
+  box-shadow: var(--or-shadow-md), var(--or-inner-hi);
+  -webkit-backdrop-filter: blur(26px) saturate(130%);
+  backdrop-filter: blur(26px) saturate(130%);
+}
+
+.oruvo .or-card {
+  background: var(--or-cloud);
+  border: 1px solid var(--or-border);
+  box-shadow: var(--or-shadow-sm);
+}
+
+.oruvo .or-hairline {
+  border-color: var(--or-border);
+}
+
+/* Reduced motion — collapse transitions inside Oruvo */
+@media (prefers-reduced-motion: reduce) {
+  .oruvo *,
+  .oruvo *::before,
+  .oruvo *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
