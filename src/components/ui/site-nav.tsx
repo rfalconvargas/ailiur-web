@@ -55,6 +55,18 @@ const MENUS: NavMenu[] = [
             logo: '/tellumetry-05-2026.png',
           },
           {
+            label: 'Lociq',
+            href: 'https://lociq.ailiur.com',
+          },
+          {
+            label: 'Unified Context Mesh',
+            href: 'https://ucm.ailiur.com',
+          },
+          {
+            label: 'Glyfra',
+            href: 'https://glyfra.ailiur.com',
+          },
+          {
             label: 'Enterprise Suite',
             href: '/contact',
             logo: '/enterprise-suite.png',
@@ -128,7 +140,7 @@ function Dropdown({ menu }: { menu: NavMenu }) {
               href={item.href}
               className="flex items-center gap-3 rounded-2xl px-3 py-2 transition-colors hover:bg-white/50"
             >
-              {item.logo && (
+              {item.logo ? (
                 <Image
                   src={item.logo}
                   alt=""
@@ -136,6 +148,13 @@ function Dropdown({ menu }: { menu: NavMenu }) {
                   height={36}
                   className="h-9 w-9 rounded-xl object-cover"
                 />
+              ) : (
+                <span
+                  aria-hidden
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-foreground text-sm font-semibold text-[#fffdf5]"
+                >
+                  {item.label.charAt(0).toUpperCase()}
+                </span>
               )}
               <span>
                 <span className="block text-sm font-medium text-foreground">{item.label}</span>
