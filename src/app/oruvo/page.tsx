@@ -9,6 +9,7 @@ import {
   ScenarioPlanner,
   TrustStrip,
   WaitlistForm,
+  OruvoFeedback,
   OruvoFooter,
 } from '@/components/oruvo';
 
@@ -26,6 +27,7 @@ export default function OruvoPage() {
       <ScenarioPlanner />
       <TrustStrip />
       <WaitlistForm />
+      <OruvoFeedback />
       <OruvoFooter />
     </>
   );

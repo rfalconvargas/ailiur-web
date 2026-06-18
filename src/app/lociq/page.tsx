@@ -19,6 +19,7 @@ import {
   LociqReveal,
   LociqSection,
   LociqWaitlist,
+  LociqFeedback,
   LQ_SIGNAL,
   lqCn,
 } from '@/components/lociq';
@@ -204,7 +205,10 @@ export default function LociqPage() {
         </LociqReveal>
       </LociqSection>
 
-      {/* ── 10. Footer ──────────────────────────────────────────── */}
+      {/* ── 10. Feedback CTA ────────────────────────────────────── */}
+      <LociqFeedback />
+
+      {/* ── 11. Footer ──────────────────────────────────────────── */}
       <LociqFooter />
     </>
   );

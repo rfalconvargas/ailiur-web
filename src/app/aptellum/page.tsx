@@ -12,6 +12,7 @@ import {
   AptellumOutreachStudio,
   AptellumFluencySection,
   AptellumCoopTracksSection,
+  AptellumFeedback,
   AptellumPilotSection,
   AptellumCard,
   AptellumHeroSection,
@@ -152,6 +153,9 @@ export default function AptellumPage() {
           Aptellum is the creative education layer of Ailiur — a preparation studio, not a job board.
         </p>
       </AptellumSection>
+
+      {/* ── Feedback ───────────────────────────────────────────── */}
+      <AptellumFeedback />
     </>
   );
 }

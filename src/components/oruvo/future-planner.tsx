@@ -9,7 +9,9 @@ const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
 
 /** Section 4 — future studio/house planner with an affordability timeline. */
 export function FuturePlanner() {
-  const [priorityId, setPriorityId] = useState(WISH_ITEMS[1].id);
+  // Default to the apartment deposit so the demo opens on a meaningful
+  // multi-month timeline rather than an already-affordable "Reachable now".
+  const [priorityId, setPriorityId] = useState(WISH_ITEMS[0].id);
   const [monthlySavings, setMonthlySavings] = useState(PLANNER_DEFAULTS.monthlySavings);
   const [currentFunds, setCurrentFunds] = useState(PLANNER_DEFAULTS.currentFunds);
 

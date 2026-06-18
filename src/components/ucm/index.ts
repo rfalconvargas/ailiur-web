@@ -10,4 +10,5 @@ export { UcmReveal } from './scroll-reveal';
 export { UcmDemoPlaceholder } from './demo-placeholder';
 export { ContextPacketBuilder } from './context-packet-builder';
 export { UcmWaitlist } from './waitlist';
+export { UcmFeedback } from './feedback';
 export { ucmCn, UCM_EASE_OUT, UCM_SIGNAL } from './utils';

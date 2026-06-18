@@ -1,5 +1,6 @@
 import { ArrowRight, Play } from 'lucide-react';
 import { TELLUMETRY_HERO } from '@/lib/tellumetry/content';
+import { PRODUCT_FEEDBACK_URL } from '@/lib/site';
 import { TellumetryButton } from './button';
 import { TellumetryReveal } from './scroll-reveal';
 import { CockpitPanel } from './cockpit-panel';
@@ -53,6 +54,14 @@ export function TellumetryHeroSection() {
               className="w-full sm:w-auto"
             >
               {TELLUMETRY_HERO.secondaryCta.label}
+            </TellumetryButton>
+            <TellumetryButton
+              href={PRODUCT_FEEDBACK_URL}
+              size="lg"
+              variant="ghost"
+              className="w-full sm:w-auto"
+            >
+              Feedback Form
             </TellumetryButton>
           </div>
 

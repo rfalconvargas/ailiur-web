@@ -1,0 +1,157 @@
+/**
+ * Daymesh sub-brand tokens — scoped to `.daymesh` only.
+ * Imported by DaymeshShell; does not alter global Ailiur (yellow) pages.
+ *
+ * Daymesh is the "biometric camera roll": a calm, light-first surface.
+ * Palette — warm off-white ground, deep charcoal type, soft amber primary,
+ * muted sage as the recovery/positive accent, and a restrained clay-red
+ * reserved for warnings only.
+ */
+
+.daymesh {
+  /* Ground */
+  --dm-bg: #faf6ef;
+  --dm-bg-soft: #f3ede1;
+  --dm-surface: #ffffff;
+
+  /* Type */
+  --dm-ink: #221f1a;
+  --dm-ink-soft: #45413a;
+  --dm-muted: #6f6a60;
+  --dm-faint: #98928699;
+
+  /* Accents */
+  --dm-amber: #cf8a33;
+  --dm-amber-soft: #e2a755;
+  --dm-amber-deep: #a96c1f;
+  --dm-sage: #5d8a6b;
+  --dm-sage-soft: #7aa886;
+  --dm-sage-deep: #3f6b4d;
+  --dm-clay: #c0584b; /* warnings only */
+  --dm-clay-soft: #d97b6f;
+
+  /* Glass surfaces (white film over warm ground) */
+  --dm-glass-bg: rgba(255, 255, 255, 0.62);
+  --dm-glass-bg-strong: rgba(255, 255, 255, 0.82);
+  --dm-border: rgba(34, 31, 26, 0.08);
+  --dm-border-strong: rgba(34, 31, 26, 0.14);
+  --dm-hairline: rgba(34, 31, 26, 0.07);
+
+  /* Depth — soft, low, premium */
+  --dm-shadow-sm: 0 1px 2px rgba(70, 55, 30, 0.04), 0 10px 30px rgba(70, 55, 30, 0.06);
+  --dm-shadow-md: 0 18px 50px rgba(70, 55, 30, 0.1);
+  --dm-shadow-lg: 0 32px 80px rgba(70, 55, 30, 0.14);
+  --dm-glow-amber: 0 0 0 1px rgba(207, 138, 51, 0.18), 0 18px 44px rgba(207, 138, 51, 0.16);
+  --dm-inner-hi: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  /* Radius */
+  --dm-radius-sm: 12px;
+  --dm-radius-md: 18px;
+  --dm-radius-lg: 26px;
+  --dm-radius-xl: 34px;
+  --dm-radius-pill: 9999px;
+
+  /* Type scale */
+  --dm-text-display: clamp(2.7rem, 6vw, 4.7rem);
+  --dm-text-h1: clamp(2rem, 4.2vw, 3.2rem);
+  --dm-text-h2: clamp(1.5rem, 3vw, 2.2rem);
+  --dm-text-body: 1.0625rem;
+  --dm-text-small: 0.8125rem;
+
+  /* Rhythm */
+  --dm-section-y: clamp(4.5rem, 10vw, 8rem);
+  --dm-content-max: 72rem;
+
+  color: var(--dm-ink);
+  background-color: var(--dm-bg);
+  /* Soft dawn mesh: a warm amber glow up-left, a sage wash up-right,
+     settling into warm off-white. */
+  background-image:
+    radial-gradient(ellipse 60% 50% at 10% -8%, rgba(226, 167, 85, 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 45% at 92% -4%, rgba(122, 168, 134, 0.16) 0%, transparent 58%),
+    linear-gradient(180deg, var(--dm-bg) 0%, var(--dm-bg-soft) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.daymesh > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Amber-ringed focus for accessibility on light. */
+.daymesh a:focus-visible,
+.daymesh button:focus-visible,
+.daymesh input:focus-visible,
+.daymesh textarea:focus-visible,
+.daymesh select:focus-visible,
+.daymesh [tabindex]:focus-visible {
+  outline: 2px solid var(--dm-amber);
+  outline-offset: 3px;
+}
+
+/* Glass panels */
+.daymesh .dm-glass {
+  background: var(--dm-glass-bg);
+  border: 1px solid var(--dm-border);
+  box-shadow: var(--dm-shadow-sm), var(--dm-inner-hi);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  backdrop-filter: blur(18px) saturate(135%);
+}
+
+.daymesh .dm-glass-strong {
+  background: var(--dm-glass-bg-strong);
+  border: 1px solid var(--dm-border-strong);
+  box-shadow: var(--dm-shadow-md), var(--dm-inner-hi);
+  -webkit-backdrop-filter: blur(26px) saturate(150%);
+  backdrop-filter: blur(26px) saturate(150%);
+}
+
+.daymesh .dm-solid {
+  background: var(--dm-surface);
+  border: 1px solid var(--dm-border);
+  box-shadow: var(--dm-shadow-sm);
+}
+
+.daymesh .dm-hairline {
+  border-color: var(--dm-hairline);
+}
+
+/* Driver moment — the context an insight is built on. Soft amber ring. */
+.daymesh .dm-driver {
+  border-color: rgba(207, 138, 51, 0.5);
+  background: rgba(207, 138, 51, 0.07);
+  box-shadow: 0 0 0 1px rgba(207, 138, 51, 0.2);
+}
+
+/* Hide scrollbars on horizontally-scrollable rows (mobile filter strip). */
+.daymesh .dm-no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.daymesh .dm-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animated connector dash for the hero "insight lines". */
+@keyframes dm-dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+.daymesh .dm-flow {
+  stroke-dasharray: 4 6;
+  animation: dm-dash 1.6s linear infinite;
+}
+
+/* Reduced motion — collapse transitions inside Daymesh. */
+@media (prefers-reduced-motion: reduce) {
+  .daymesh *,
+  .daymesh *::before,
+  .daymesh *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

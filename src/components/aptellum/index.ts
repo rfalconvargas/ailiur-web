@@ -12,6 +12,7 @@ export { AptellumOutreachStudio } from './outreach-studio';
 export { AptellumFluencySection } from './fluency-section';
 export { AptellumPilotSection } from './pilot-section';
 export { AptellumCoopTracksSection } from './coop-tracks-section';
+export { AptellumFeedback } from './feedback';
 export { AptellumSection } from './section';
 export { AptellumBadge, badgeVariants } from './badge';
 export { AptellumButton, buttonVariants } from './button';

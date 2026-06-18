@@ -17,6 +17,7 @@ import {
   OlluneCommandHero,
   IntentSurfaceDemo,
   OlluneWaitlist,
+  OlluneFeedback,
   OlluneSection,
   OlluneEyebrow,
   OlluneReveal,
@@ -396,7 +397,10 @@ export default function OllunePage() {
         </div>
       </section>
 
-      {/* ── 10. Footer ────────────────────────────────────────── */}
+      {/* ── 10. Feedback CTA ──────────────────────────────────── */}
+      <OlluneFeedback />
+
+      {/* ── 11. Footer ────────────────────────────────────────── */}
       <footer className="mx-auto w-full max-w-[var(--ol-content-max)] px-4 pb-16">
         <div className="ol-glass rounded-[var(--ol-radius-xl)] px-6 py-9 sm:px-9">
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">

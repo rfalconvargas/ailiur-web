@@ -1,5 +1,6 @@
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, MessageSquareHeart, Play } from 'lucide-react';
 import { TAYZT_HERO } from '@/lib/tayzt/content';
+import { PRODUCT_FEEDBACK_URL } from '@/lib/site';
 import { TayztButton } from './button';
 import { TayztReveal } from './scroll-reveal';
 import { TimelinePreview } from './timeline-preview';
@@ -49,6 +50,15 @@ export function TayztHeroSection() {
               iconPosition="start"
             >
               {TAYZT_HERO.secondaryCta.label}
+            </TayztButton>
+            <TayztButton
+              href={PRODUCT_FEEDBACK_URL}
+              size="lg"
+              variant="ghost"
+              icon={<MessageSquareHeart className="h-4 w-4" />}
+              iconPosition="start"
+            >
+              Feedback Form
             </TayztButton>
           </div>
         </TayztReveal>

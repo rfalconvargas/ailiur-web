@@ -7,6 +7,7 @@ import { OruvoButton } from './button';
 import { OruvoReveal } from './reveal';
 import { orCn, OR_EASE_OUT, TONE_COLOR } from './utils';
 import { BRAND, HERO, HERO_TABS, HINTS, type HeroTabKey } from '@/lib/oruvo/content';
+import { PRODUCT_FEEDBACK_URL } from '@/lib/site';
 
 /** Interactive phone/dashboard card with switchable tabs. */
 function DashboardCard() {
@@ -122,6 +123,9 @@ export function OruvoHero() {
             </OruvoButton>
             <OruvoButton href="#balance-sheet" size="lg" variant="glass">
               {HERO.secondaryCta}
+            </OruvoButton>
+            <OruvoButton href={PRODUCT_FEEDBACK_URL} size="lg" variant="ghost">
+              Feedback Form
             </OruvoButton>
           </div>
 

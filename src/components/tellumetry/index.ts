@@ -10,4 +10,5 @@ export { CockpitPanel } from './cockpit-panel';
 export { AgentPreflightDemo } from './agent-preflight-demo';
 export { TelemetryCard } from './telemetry-card';
 export { TellumetryWaitlist } from './waitlist';
+export { TellumetryFeedback } from './feedback';
 export { tmCn, TM_EASE_OUT, TM_SIGNAL } from './utils';

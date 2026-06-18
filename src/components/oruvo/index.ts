@@ -14,5 +14,6 @@ export { TimeRoiCards } from './time-roi';
 export { ScenarioPlanner } from './scenario-planner';
 export { TrustStrip } from './trust';
 export { WaitlistForm } from './waitlist';
+export { OruvoFeedback } from './feedback';
 export { OruvoFooter } from './footer';
 export { orCn, OR_EASE_OUT } from './utils';

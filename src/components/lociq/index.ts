@@ -10,4 +10,5 @@ export { ConsensusRing } from './consensus-ring';
 export { TownHallPanel } from './town-hall-panel';
 export { CivicActionSimulator } from './civic-action-simulator';
 export { LociqWaitlist } from './waitlist';
+export { LociqFeedback } from './feedback';
 export { lqCn, LQ_EASE_OUT, LQ_SIGNAL } from './utils';

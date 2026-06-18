@@ -1,5 +1,6 @@
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, MessageSquareHeart, Play } from 'lucide-react';
 import { UCM_HERO } from '@/lib/ucm/content';
+import { PRODUCT_FEEDBACK_URL } from '@/lib/site';
 import { UcmButton } from './button';
 import { UcmReveal } from './scroll-reveal';
 import { MeshVisual } from './mesh-visual';
@@ -50,6 +51,15 @@ export function UcmHeroSection() {
               icon={<ArrowRight className="h-4 w-4" />}
             >
               {UCM_HERO.secondaryCta.label}
+            </UcmButton>
+            <UcmButton
+              href={PRODUCT_FEEDBACK_URL}
+              size="lg"
+              variant="ghost"
+              icon={<MessageSquareHeart className="h-4 w-4" />}
+              iconPosition="start"
+            >
+              Feedback Form
             </UcmButton>
           </div>
 

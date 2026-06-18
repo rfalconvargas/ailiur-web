@@ -15,6 +15,7 @@ import {
   TayztAtmosphereLab,
   TayztButton,
   TayztCard,
+  TayztFeedback,
   TayztFooter,
   TayztHeroSection,
   TayztReveal,
@@ -205,7 +206,10 @@ export default function TayztPage() {
         </TayztReveal>
       </TayztSection>
 
-      {/* ── 10. Footer ──────────────────────────────────────────── */}
+      {/* ── 10. Feedback CTA ────────────────────────────────────── */}
+      <TayztFeedback />
+
+      {/* ── 11. Footer ──────────────────────────────────────────── */}
       <TayztFooter />
     </>
   );

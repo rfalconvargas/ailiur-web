@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ArrowDown, ArrowUp, CornerDownLeft, Sparkles } from 'lucide-react';
 import { OlluneButton } from './button';
 import { OL_EASE_OUT } from './utils';
+import { PRODUCT_FEEDBACK_URL } from '@/lib/site';
 
 /** Intents the surface forms around — used as a rotating, typed placeholder. */
 const INTENTS = [
@@ -167,6 +168,14 @@ export function OlluneCommandHero() {
           <OlluneButton href="#waitlist" variant="glass" size="lg">
             Request early access
           </OlluneButton>
+          <a
+            href={PRODUCT_FEEDBACK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-[var(--ol-radius-pill)] px-7 py-3.5 text-base font-semibold tracking-tight text-[var(--ol-silver)] transition-colors duration-200 hover:text-[var(--ol-cream)]"
+          >
+            Feedback Form
+          </a>
         </div>
 
         <a

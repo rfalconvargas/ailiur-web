@@ -19,6 +19,7 @@ import {
   TellumetryReveal,
   TellumetrySection,
   TellumetryWaitlist,
+  TellumetryFeedback,
   TM_SIGNAL,
   tmCn,
 } from '@/components/tellumetry';
@@ -221,7 +222,10 @@ export default function TellumetryPage() {
         </TellumetryReveal>
       </TellumetrySection>
 
-      {/* ── 10. Footer ──────────────────────────────────────────── */}
+      {/* ── 10. Feedback CTA ────────────────────────────────────── */}
+      <TellumetryFeedback />
+
+      {/* ── 11. Footer ──────────────────────────────────────────── */}
       <TellumetryFooter />
     </>
   );

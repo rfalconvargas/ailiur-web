@@ -16,6 +16,8 @@ import { Reveal } from '@/components/retellum/reveal';
 import { MediaExplorer } from '@/components/retellum/media-explorer';
 import { LogFirstMediaDemo } from '@/components/retellum/log-first-media-demo';
 import { Waitlist } from '@/components/retellum/waitlist';
+import { RetellumFeedback } from '@/components/retellum/feedback';
+import { PRODUCT_FEEDBACK_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Retellum — Your media becomes memory',
@@ -103,6 +105,14 @@ export default function RetellumPage() {
               className="glass-strong inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-foreground transition-transform hover:-translate-y-0.5"
             >
               Explore the demo
+            </a>
+            <a
+              href={PRODUCT_FEEDBACK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-foreground/70 transition-colors hover:text-foreground"
+            >
+              Feedback Form
             </a>
           </div>
         </Reveal>
@@ -339,7 +349,10 @@ export default function RetellumPage() {
         </div>
       </section>
 
-      {/* ── 8. Footer note ──────────────────────────────────── */}
+      {/* ── 8. Feedback ─────────────────────────────────────── */}
+      <RetellumFeedback />
+
+      {/* ── 9. Footer note ──────────────────────────────────── */}
       <div className="mx-auto max-w-2xl px-4 text-center">
         <p className="text-xs leading-relaxed text-foreground/45">
           Retellum is for reflection, attribution, and learning. It does not host

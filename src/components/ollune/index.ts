@@ -6,4 +6,5 @@ export { OlluneSection, OlluneEyebrow } from './section';
 export { OlluneCommandHero } from './command-hero';
 export { IntentSurfaceDemo } from './intent-surface-demo';
 export { OlluneWaitlist } from './waitlist';
+export { OlluneFeedback } from './feedback';
 export { olCn, OL_EASE_OUT } from './utils';

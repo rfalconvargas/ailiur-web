@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, MessageSquareHeart } from "lucide-react";
 import { SmartLink } from "@/components/ui/smart-link";
 import {
   ENTERPRISE_APPS,
   getEnterpriseApp,
   ENTERPRISE_EMAIL,
 } from "@/lib/enterprise";
+import { PRODUCT_FEEDBACK_URL } from "@/lib/site";
 
 export function generateStaticParams() {
   return ENTERPRISE_APPS.map((a) => ({ slug: a.slug }));
@@ -69,6 +70,14 @@ export default async function EnterprisePage({
           >
             See {app.parent}
           </SmartLink>
+          <a
+            href={PRODUCT_FEEDBACK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-foreground/70 transition-colors hover:text-foreground"
+          >
+            Feedback Form
+          </a>
         </div>
       </section>
 
@@ -113,6 +122,34 @@ export default async function EnterprisePage({
         >
           Email {ENTERPRISE_EMAIL}
           <ArrowRight className="h-4 w-4" />
+        </a>
+      </section>
+
+      {/* Feedback */}
+      <section
+        id="feedback"
+        className="glass-strong mt-8 flex scroll-mt-28 flex-col items-center gap-5 rounded-[var(--radius-panel)] px-6 py-12 text-center sm:px-10"
+      >
+        <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-foreground/70">
+          <MessageSquareHeart className="h-3.5 w-3.5 text-accent-green" aria-hidden />
+          Feedback
+        </span>
+        <h2 className="max-w-2xl font-display text-[clamp(1.6rem,3.5vw,2.5rem)] font-extrabold leading-tight tracking-tight text-foreground">
+          Give us your honest feedback.
+        </h2>
+        <p className="max-w-xl text-sm leading-relaxed text-foreground/70">
+          {app.name} is early, and it&apos;s shaped by the people who use it. Tell us what&apos;s
+          working, what&apos;s missing, and what we should build next — it goes straight to the
+          team.
+        </p>
+        <a
+          href={PRODUCT_FEEDBACK_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-2 rounded-full bg-accent-green px-6 py-3 text-sm font-semibold text-[#fffdf5] transition-transform hover:-translate-y-0.5"
+        >
+          Ailiur Feedback Form
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </a>
       </section>
     </main>

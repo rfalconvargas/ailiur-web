@@ -19,6 +19,7 @@ import {
   UcmReveal,
   UcmSection,
   UcmWaitlist,
+  UcmFeedback,
   UCM_SIGNAL,
   ucmCn,
 } from '@/components/ucm';
@@ -234,7 +235,10 @@ export default function UcmPage() {
         </UcmReveal>
       </UcmSection>
 
-      {/* ── 10. Footer ──────────────────────────────────────────── */}
+      {/* ── 10. Feedback CTA ────────────────────────────────────── */}
+      <UcmFeedback />
+
+      {/* ── 11. Footer ──────────────────────────────────────────── */}
       <UcmFooter />
     </>
   );

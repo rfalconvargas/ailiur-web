@@ -82,6 +82,13 @@ const ABOUT = {
   contact: { label: 'Contact us', href: '/contact' },
 };
 
+const LEGAL: Link[] = [
+  { label: 'Terms', href: '/terms' },
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Refund Policy', href: '/refund' },
+  { label: 'Contact', href: '/contact' },
+];
+
 const SOCIAL: Link[] = [
   { label: 'YouTube', href: 'https://youtube.com/@ailiur' },
   { label: 'X', href: 'https://x.com/ailiur' },
@@ -148,8 +155,21 @@ export function SiteFooter() {
           ))}
         </div>
 
+        {/* Legal row */}
+        <div className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/40 pt-8">
+          {LEGAL.map((l) => (
+            <SmartLink
+              key={l.label}
+              href={l.href}
+              className="text-sm text-foreground/55 transition-colors hover:text-foreground"
+            >
+              {l.label}
+            </SmartLink>
+          ))}
+        </div>
+
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-white/40 pt-8 sm:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div className="flex items-center gap-2.5">
             <Image
               src="/ailiur-logo.jpg"

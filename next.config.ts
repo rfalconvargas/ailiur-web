@@ -35,6 +35,10 @@ const LOCIQ_HOST = "lociq.ailiur.com";
 // (the wealth-intelligence product, "Oruvo by Ailiur").
 const ORUVO_HOST = "oruvo.ailiur.com";
 
+// daymesh.ailiur.com — same pattern: subdomain root serves /daymesh
+// (the "biometric camera roll" product, "Daymesh by Ailiur").
+const DAYMESH_HOST = "daymesh.ailiur.com";
+
 // Enterprise Suite — each enterprise app is served at its own subdomain root,
 // rewriting to /enterprise/<slug> (same lock-down pattern as the others).
 const ENTERPRISE_SUBS: { host: string; path: string }[] = [
@@ -100,6 +104,11 @@ const nextConfig: NextConfig = {
           source: "/",
           has: [{ type: "host", value: ORUVO_HOST }],
           destination: "/oruvo",
+        },
+        {
+          source: "/",
+          has: [{ type: "host", value: DAYMESH_HOST }],
+          destination: "/daymesh",
         },
         ...ENTERPRISE_SUBS.map((s) => ({
           source: "/",
@@ -167,6 +176,13 @@ const nextConfig: NextConfig = {
         // Oruvo subdomain: non-root paths (except assets) → main site.
         source: "/:path((?!_next/).+)",
         has: [{ type: "host", value: ORUVO_HOST }],
+        destination: "https://ailiur.com/:path",
+        permanent: false,
+      },
+      {
+        // Daymesh subdomain: non-root paths (except assets) → main site.
+        source: "/:path((?!_next/).+)",
+        has: [{ type: "host", value: DAYMESH_HOST }],
         destination: "https://ailiur.com/:path",
         permanent: false,
       },

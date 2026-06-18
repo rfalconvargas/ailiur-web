@@ -8,6 +8,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { SmartLink } from '@/components/ui/smart-link';
 import { ENTERPRISE_APPS } from '@/lib/enterprise';
+import { useAiliurApp } from '@/components/app/app-context';
 
 type SessionUser = { name?: string | null; email?: string | null; image?: string | null };
 
@@ -15,67 +16,10 @@ type NavLeaf = { label: string; href: string; desc?: string; logo?: string };
 type NavGroup = { title?: string; href?: string; items?: NavLeaf[] };
 type NavMenu = { label: string; groups: NavGroup[]; cta?: NavLeaf };
 
+// NOTE: The public "Products" mega-menu was intentionally removed from the
+// homepage nav. Product/app discovery now lives inside the fullscreen Ailiur
+// App's Workspace section. The primary nav action is "Launch App".
 const MENUS: NavMenu[] = [
-  {
-    label: 'Products',
-    groups: [
-      {
-        items: [
-          {
-            label: 'Enchiridion',
-            href: 'https://www.enchiridion.ailiur.com',
-            logo: '/enchiridion-logo-2024.jpg',
-          },
-          {
-            label: 'Qetos',
-            href: 'https://qetos.ailiur.com',
-            logo: '/qetos-app-05-2026.png',
-          },
-          {
-            label: 'Oruvo',
-            href: 'https://oruvo.ailiur.com',
-            logo: '/oruvo-logo-06-2026.png',
-          },
-          {
-            label: 'Ollune',
-            href: 'https://ollune.ailiur.com',
-          },
-          {
-            label: 'Retellum',
-            href: 'https://retellum.ailiur.com',
-            logo: '/retellum-05-2026.png',
-          },
-          {
-            label: 'Tayzt',
-            href: 'https://tayzt.ailiur.com',
-            logo: '/tayzt-05-2026.png',
-          },
-          {
-            label: 'Tellumetry',
-            href: 'https://tellumetry.ailiur.com',
-            logo: '/tellumetry-05-2026.png',
-          },
-          {
-            label: 'Lociq',
-            href: 'https://lociq.ailiur.com',
-          },
-          {
-            label: 'Unified Context Mesh',
-            href: 'https://ucm.ailiur.com',
-          },
-          {
-            label: 'Glyfra',
-            href: 'https://glyfra.ailiur.com',
-          },
-          {
-            label: 'Enterprise Suite',
-            href: '/contact',
-            logo: '/enterprise-suite.png',
-          },
-        ],
-      },
-    ],
-  },
   {
     label: 'Resources',
     groups: [
@@ -300,6 +244,18 @@ function AccountMenu({ user }: { user: SessionUser }) {
               {user.email && <p className="truncate text-xs text-foreground/55">{user.email}</p>}
             </div>
             <div className="my-1 border-t border-white/40" />
+            <SmartLink
+              href="/account"
+              className="block w-full rounded-2xl px-3 py-2 text-left text-sm font-medium text-foreground transition-colors hover:bg-white/50"
+            >
+              Account Center
+            </SmartLink>
+            <SmartLink
+              href="/dashboard"
+              className="block w-full rounded-2xl px-3 py-2 text-left text-sm font-medium text-foreground transition-colors hover:bg-white/50"
+            >
+              Dashboard
+            </SmartLink>
             <button
               onClick={() => signOut({ callbackUrl: '/' })}
               className="block w-full rounded-2xl px-3 py-2 text-left text-sm font-medium text-foreground transition-colors hover:bg-white/50"
@@ -318,6 +274,7 @@ export function SiteNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [entOpen, setEntOpen] = useState(false);
   const { data: session } = useSession();
+  const { openApp } = useAiliurApp();
   const user = session?.user;
 
   return (
@@ -405,6 +362,14 @@ export function SiteNav() {
 
         {/* Right actions */}
         <div className="hidden items-center gap-2 lg:flex">
+          {/* Primary nav action — launch the fullscreen Ailiur App. */}
+          <button
+            type="button"
+            onClick={() => openApp()}
+            className="rounded-full bg-accent-green px-4 py-2 text-sm font-semibold text-[#fffdf5] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-green"
+          >
+            Launch App
+          </button>
           {user ? (
             <AccountMenu user={user} />
           ) : (
@@ -501,8 +466,19 @@ export function SiteNav() {
             >
               Pricing
             </SmartLink>
+            {/* Primary action — launch the fullscreen Ailiur App. */}
+            <button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false);
+                openApp();
+              }}
+              className="mt-1 block w-full rounded-full bg-accent-green px-4 py-2.5 text-center text-sm font-semibold text-[#fffdf5]"
+            >
+              Launch App
+            </button>
             {user ? (
-              <div className="mt-2 flex items-center justify-between gap-3 rounded-xl px-2 py-2">
+              <div className="mt-2 rounded-xl px-2 py-2">
                 <div className="flex min-w-0 items-center gap-2.5">
                   {user.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -517,12 +493,20 @@ export function SiteNav() {
                     {user.name ?? user.email}
                   </span>
                 </div>
-                <button
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                  className="shrink-0 rounded-full border border-white/60 px-4 py-2 text-sm font-medium"
-                >
-                  Sign out
-                </button>
+                <div className="mt-2 flex gap-2">
+                  <SmartLink
+                    href="/account"
+                    className="flex-1 rounded-full bg-foreground px-4 py-2 text-center text-sm font-semibold text-[#fffdf5]"
+                  >
+                    Account Center
+                  </SmartLink>
+                  <button
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    className="flex-1 rounded-full border border-white/60 px-4 py-2 text-sm font-medium"
+                  >
+                    Sign out
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="mt-2 flex gap-2">

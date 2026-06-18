@@ -9,4 +9,5 @@ export { TayztReveal } from './scroll-reveal';
 export { TimelinePreview } from './timeline-preview';
 export { TayztAtmosphereLab } from './atmosphere-lab';
 export { TayztWaitlist } from './waitlist';
+export { TayztFeedback } from './feedback';
 export { tzCn, TZ_EASE_OUT, TZ_SIGNAL } from './utils';

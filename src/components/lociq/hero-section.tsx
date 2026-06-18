@@ -4,6 +4,7 @@ import { LociqButton } from './button';
 import { LociqReveal } from './scroll-reveal';
 import { TownHallPanel } from './town-hall-panel';
 import { lqCn } from './utils';
+import { PRODUCT_FEEDBACK_URL } from '@/lib/site';
 
 const PILLARS = ['Report', 'Understand', 'Vote', 'Organize'] as const;
 
@@ -52,6 +53,20 @@ export function LociqHeroSection() {
             >
               {LOCIQ_HERO.secondaryCta.label}
             </LociqButton>
+            <a
+              href={PRODUCT_FEEDBACK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={lqCn(
+                'group inline-flex h-12 items-center justify-center gap-2 rounded-[var(--lq-radius-pill)] px-8',
+                'text-[0.9375rem] font-semibold tracking-tight text-[var(--lq-charcoal)]',
+                'transition-[transform,background-color,color] duration-300 ease-out',
+                'hover:bg-[color-mix(in_srgb,var(--lq-ink)_6%,transparent)] hover:text-[var(--lq-ink)]',
+                'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[var(--lq-green)]',
+              )}
+            >
+              Feedback Form
+            </a>
           </div>
 
           {/* The four civic moves */}

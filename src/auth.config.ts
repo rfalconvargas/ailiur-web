@@ -22,7 +22,7 @@ const cookieDomain = process.env.AUTH_COOKIE_DOMAIN || undefined;
 export const authConfig = {
   trustHost: true,
   session: { strategy: 'jwt' },
-  pages: { signIn: '/signup' },
+  pages: { signIn: '/login' },
   // Real providers are added in auth.ts. Kept empty here so this config stays
   // edge-safe and shareable across subdomains that only need to *read* sessions.
   providers: [],
@@ -65,12 +65,17 @@ export const authConfig = {
       }
       return session;
     },
-    // Allow post-login redirects to any *.ailiur.com subdomain so a subdomain
-    // can send users to ailiur.com/signup?callbackUrl=https://qetos.ailiur.com/…
+    // Allow post-login redirects to (a) the same origin — so relative targets
+    // like "/dashboard" work in every environment including localhost — and
+    // (b) any *.ailiur.com subdomain, so a subdomain can send users to
+    // ailiur.com/login?callbackUrl=https://qetos.ailiur.com/…
     async redirect({ url, baseUrl }) {
       try {
         const target = new URL(url, baseUrl);
-        if (target.hostname === 'ailiur.com' || target.hostname.endsWith('.ailiur.com')) {
+        const sameOrigin = target.origin === new URL(baseUrl).origin;
+        const isAiliur =
+          target.hostname === 'ailiur.com' || target.hostname.endsWith('.ailiur.com');
+        if (sameOrigin || isAiliur) {
           return target.toString();
         }
       } catch {

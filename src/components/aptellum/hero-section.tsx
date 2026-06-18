@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { APTELLUM_META } from '@/lib/aptellum/content';
 import { PAGE_HERO } from '@/lib/aptellum/page-content';
+import { PRODUCT_FEEDBACK_URL } from '@/lib/site';
 import { AptellumBadge } from './badge';
 import { AptellumButton } from './button';
 import { HeroVisual } from './hero-visual';
@@ -53,6 +54,9 @@ export function AptellumHeroSection() {
             </AptellumButton>
             <AptellumButton href={PAGE_HERO.secondaryCta.href} size="lg" variant="secondary">
               {PAGE_HERO.secondaryCta.label}
+            </AptellumButton>
+            <AptellumButton href={PRODUCT_FEEDBACK_URL} size="lg" variant="ghost">
+              Feedback Form
             </AptellumButton>
           </div>
           <AptellumTrustStrip className="mt-10 max-w-lg" variant="stacked" />
