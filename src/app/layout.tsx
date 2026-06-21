@@ -26,7 +26,7 @@ const rounded = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.ailiur.com"),
   title: {
-    default: "Ailiur — AI-first outcome engines for a better human life",
+    default: "Ailiur",
     template: "%s · Ailiur",
   },
   description:
