@@ -1,9 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import { motion, type Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { SmartLink } from '@/components/ui/smart-link';
-import { useAiliurApp } from '@/components/app/app-context';
+import { track } from '@/lib/analytics';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -17,24 +18,26 @@ const rise: Variants = {
 };
 
 export function Hero() {
-  const { openApp } = useAiliurApp();
-
   return (
     <section className="relative flex min-h-screen w-full items-center overflow-hidden px-4 pb-24 pt-32 sm:pt-36">
       {/* Full-bleed brand render: red pillar + green loop orbiting on the right,
           spacious warm-yellow field on the left for the headline. */}
       <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
-        <img
+        <Image
           src="/ailiur-hero-image.png"
           alt=""
-          className="h-full w-full object-cover object-[82%_center] sm:object-[right_center]"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[82%_center] sm:object-[right_center]"
           draggable={false}
         />
-        {/* Left scrim — keeps the dark headline crisp while letting the orbital
-            paths whisper through. Lighter on large screens so the object breathes. */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#ffd60a] via-[#ffd60a]/70 to-transparent sm:via-[#ffd60a]/45 lg:via-[#ffd60a]/25" />
-        {/* Bottom fade so the render dissolves seamlessly into the page yellow. */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#ffd60a]" />
+        {/* Left scrim — the brand-yellow hero moment. Keeps the dark headline
+            crisp while letting the orbital paths whisper through; lighter on
+            large screens so the object breathes. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-brand-yellow)] via-[var(--color-brand-yellow)]/70 to-transparent sm:via-[var(--color-brand-yellow)]/45 lg:via-[var(--color-brand-yellow)]/25" />
+        {/* Bottom fade so the render dissolves seamlessly into the neutral canvas. */}
+        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent to-[var(--color-canvas)]" />
       </div>
 
       <motion.div
@@ -47,10 +50,10 @@ export function Hero() {
           {/* Eyebrow */}
           <motion.span
             variants={rise}
-            className="glass-strong mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-foreground/70"
+            className="badge-brand mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground/80"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-accent-green" />
-            Operating System for Life
+            AI-first outcome engines
           </motion.span>
 
           {/* Headline */}
@@ -58,10 +61,10 @@ export function Hero() {
             variants={rise}
             className="font-display text-[clamp(2.75rem,7vw,5rem)] font-extrabold leading-[1.02] tracking-tight text-foreground"
           >
-            The operating system
+            Outcome engines
             <br />
-            for human{' '}
-            <span className="font-[200] italic">flourishing</span>.
+            for a better human{' '}
+            <span className="font-[200] italic">life</span>.
           </motion.h1>
 
           {/* Subtitle */}
@@ -69,29 +72,34 @@ export function Hero() {
             variants={rise}
             className="mt-6 max-w-xl text-base leading-relaxed text-foreground/75 sm:text-lg"
           >
-            Ailiur unifies your health, learning, and focus into one local-first
-            system — connected by the Context Mesh, so every part of your life
-            compounds.
+            Ailiur builds AI-first apps for learning, health, creativity, personal intelligence, and
+            work — each one an engine that produces results, connected by one private Context Mesh so
+            progress in one compounds across all.
           </motion.p>
 
-          {/* Primary CTA: launch the fullscreen app. Account stays secondary. */}
+          {/* Primary CTA: pricing (conversion). Explore is secondary. */}
           <motion.div
             variants={rise}
             className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center"
           >
-            <button
-              type="button"
-              onClick={() => openApp()}
+            <SmartLink
+              href="#pricing"
+              onClick={() =>
+                track('cta_click', { id: 'see_pricing', location: 'hero', label: 'See pricing' })
+              }
               className="group inline-flex items-center gap-2 rounded-full bg-accent-green px-7 py-3.5 text-sm font-semibold text-[#fffdf5] shadow-lg shadow-accent-green/20 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-green"
             >
-              Launch Ailiur App
+              See pricing
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </button>
+            </SmartLink>
             <SmartLink
-              href="/signup"
+              href="#ecosystem"
+              onClick={() =>
+                track('cta_click', { id: 'explore_ecosystem', location: 'hero', label: 'Explore the ecosystem' })
+              }
               className="glass-strong inline-flex items-center rounded-full px-6 py-3.5 text-sm font-semibold text-foreground transition-transform hover:-translate-y-0.5"
             >
-              Create your account
+              Explore the ecosystem
             </SmartLink>
           </motion.div>
         </div>

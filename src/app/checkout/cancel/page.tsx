@@ -26,10 +26,10 @@ export default function CheckoutCancelPage() {
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
-            href="/pricing#founder-access"
+            href="/pricing"
             className="inline-flex w-full items-center justify-center rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-[#fffdf5] transition-transform hover:-translate-y-0.5 sm:w-auto"
           >
-            View Founder Access plans
+            View pricing plans
           </Link>
           <Link
             href="/"

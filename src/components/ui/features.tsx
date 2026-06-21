@@ -38,13 +38,13 @@ const FEATURES: Feature[] = [
     icon: ShieldCheck,
     title: 'Local-First & Sovereign',
     body: 'Everything runs on-device — deterministic, private, and fast. Your data never leaves unless you explicitly send it.',
-    tint: 'var(--ketofy)',
+    tint: 'var(--color-brand-olive)',
   },
 ];
 
 export function Features() {
   return (
-    <section id="features" className="relative w-full px-4 py-24 sm:py-32">
+    <section id="mesh" className="relative w-full scroll-mt-24 px-4 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl">
         {/* Section heading */}
         <motion.div
@@ -58,17 +58,18 @@ export function Features() {
             variants={rise}
             className="text-xs font-semibold uppercase tracking-widest text-foreground/50"
           >
-            The System
+            Why the engines compound
           </motion.span>
           <motion.h2
             variants={rise}
             className="mt-3 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.08] tracking-tight text-foreground"
           >
-            One context. Every part of your life.
+            One context layer beneath every app.
           </motion.h2>
           <motion.p variants={rise} className="mt-4 text-base text-foreground/65 sm:text-lg">
-            Qetos and Enchiridion are different surfaces of the same operating
-            system — quietly connected underneath.
+            Standalone apps are useful. Connected ones compound. The Unified Context Mesh is the
+            local-first layer that lets each engine make the others smarter — privately, on your
+            device.
           </motion.p>
         </motion.div>
 

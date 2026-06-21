@@ -11,16 +11,32 @@
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
-  /* Ailiur brand tokens */
+  /* Ailiur brand tokens — mapped onto the Luminous Neutral Ecosystem palette
+     defined in :root. Existing utilities (bg-ailiur, bg-accent-green, …) keep
+     working; their *values* now come from the semantic brand tokens. */
   --color-ailiur: var(--ailiur-yellow);
   --color-ailiur-light: var(--ailiur-yellow-light);
   --color-ailiur-deep: var(--ailiur-yellow-deep);
   --color-accent-green: var(--accent-green);
   --color-accent-red: var(--accent-red);
+  --color-accent-olive: var(--color-brand-olive);
   --color-enchiridion: var(--enchiridion);
   --color-ketofy: var(--ketofy);
 
-  /* Generous, soft rounding (Apple glass) */
+  /* Direct utility access to the semantic brand palette (bg-brand-yellow,
+     text-brand-green, border-canvas, …) for new work. */
+  --color-canvas: var(--color-canvas);
+  --color-surface: var(--color-surface);
+  --color-surface-secondary: var(--color-surface-secondary);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-brand-yellow: var(--color-brand-yellow);
+  --color-brand-red: var(--color-brand-red);
+  --color-brand-olive: var(--color-brand-olive);
+  --color-brand-green: var(--color-brand-green);
+  --color-deep-contrast: var(--color-deep-contrast);
+
+  /* Generous, soft rounding (editorial / Apple glass) */
   --radius-card: 24px;
   --radius-panel: 32px;
 
@@ -69,61 +85,95 @@
 }
 
 /*
- * Ailiur is a bright-yellow, Apple-glass system. Background is the logo's
- * yellow field; content floats on frosted-glass panels. Values come from the
- * ailiur-web-design skill tokens.
+ * AILIUR — Luminous Neutral Ecosystem
+ * ------------------------------------------------------------------
+ * A premium master-brand system. The site reads on a warm neutral
+ * canvas; the logo's tri-color is reserved for emphasis. Discipline,
+ * not decoration: yellow for hero/brand moments, green for system &
+ * ecosystem states, red as a high-energy accent, olive as the quiet
+ * technical bridge.
+ *
+ * Semantic tokens are the single source of truth. Every shadcn and
+ * legacy brand variable below is derived from them, so the whole site
+ * shifts coherently.
  */
 :root {
-  /* Brand */
-  --ailiur-yellow: #ffd60a;
-  --ailiur-yellow-light: #ffe873;
-  --ailiur-yellow-deep: #f5c400;
-  --accent-green: #1fa85c;
-  --accent-red: #e5392b;
+  /* ---- Core semantic palette (canonical) ---- */
+  --color-canvas: #fbf7e8;             /* page background — long-form reading */
+  --color-surface: #fffcef;            /* raised cards / panels */
+  --color-surface-secondary: #f5edc7;  /* recessed wells, toggles, chips */
+  --color-border: #ddd090;             /* warm sand hairline */
+  --color-text-primary: #17140f;       /* headlines & body — very high contrast */
+  --color-text-secondary: #5d5646;     /* supporting copy & labels */
+
+  /* ---- Brand tri-color (+ deep contrast) ---- */
+  --color-brand-yellow: #f1e54a;       /* hero / brand emphasis only */
+  --color-brand-red: #d93a1e;          /* high-energy accent, sparing */
+  --color-brand-olive: #877a15;        /* technical / bridge / support */
+  --color-brand-green: #34cb1d;        /* vivid system/active — decorative fills */
+  --color-deep-contrast: #1b1a12;      /* near-black warm panels */
+
+  /* Yellow family — derived light/deep for the hero field gradient. */
+  --ailiur-yellow: var(--color-brand-yellow);
+  --ailiur-yellow-light: #f7ef8f;
+  --ailiur-yellow-deep: #e4d72f;
+
+  /* Accent aliases used across components.
+     accent-green is deliberately a DEEPENED green (not the vivid brand
+     green) so it stays WCAG-AA as a button surface, link, and small text;
+     the vivid --color-brand-green is reserved for decorative fills and
+     active dots, especially on dark surfaces. */
+  --accent-green: #1a7a14;
+  --accent-red: var(--color-brand-red);
+
+  /* Product identity colors (used on product pages, not the master brand) */
   --enchiridion: #34c759;
   --ketofy: #ff9500;
 
-  /* Glass surface tokens */
-  --glass-bg: rgba(255, 255, 255, 0.5);
-  --glass-bg-strong: rgba(255, 255, 255, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.65);
-  --glass-shadow: 0 8px 32px rgba(80, 60, 0, 0.12);
+  /* ---- Surface ("glass") tokens, tuned for the neutral canvas ----
+     On cream, panels read as clean warm-white surfaces lifted by a sand
+     hairline and a soft neutral shadow rather than by heavy translucency. */
+  --glass-bg: rgba(255, 252, 239, 0.72);
+  --glass-bg-strong: rgba(255, 252, 239, 0.88);
+  --glass-border: rgba(221, 208, 144, 0.55);
+  --glass-shadow: 0 1px 2px rgba(23, 20, 15, 0.04), 0 14px 32px -12px rgba(23, 20, 15, 0.16);
 
-  /* shadcn semantic tokens, recolored to the yellow-glass theme */
-  --background: #ffd60a;
-  --foreground: #1c1606;
-  --card: rgba(255, 255, 255, 0.5);
-  --card-foreground: #1c1606;
-  --popover: #fffdf5;
-  --popover-foreground: #1c1606;
-  --primary: #1fa85c;
-  --primary-foreground: #fffdf5;
-  --secondary: rgba(255, 255, 255, 0.72);
-  --secondary-foreground: #1c1606;
-  --muted: rgba(255, 255, 255, 0.45);
-  --muted-foreground: #6b5a16;
-  --accent: rgba(255, 255, 255, 0.72);
-  --accent-foreground: #1c1606;
-  --destructive: #e5392b;
-  --border: rgba(255, 255, 255, 0.65);
-  --input: rgba(255, 255, 255, 0.65);
-  --ring: #1fa85c;
+  /* ---- shadcn semantic tokens, recolored to the neutral system ---- */
+  --background: var(--color-canvas);
+  --foreground: var(--color-text-primary);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-text-primary);
+  --popover: var(--color-surface);
+  --popover-foreground: var(--color-text-primary);
+  --primary: var(--accent-green);
+  --primary-foreground: var(--color-surface);
+  --secondary: var(--color-surface-secondary);
+  --secondary-foreground: var(--color-text-primary);
+  --muted: var(--color-surface-secondary);
+  --muted-foreground: var(--color-text-secondary);
+  --accent: var(--color-surface-secondary);
+  --accent-foreground: var(--color-text-primary);
+  --destructive: var(--color-brand-red);
+  --border: var(--color-border);
+  --input: var(--color-border);
+  --ring: var(--accent-green);
 
-  --chart-1: #1fa85c;
-  --chart-2: #ff9500;
-  --chart-3: #e5392b;
-  --chart-4: #34c759;
-  --chart-5: #6b5a16;
+  /* Data viz — the brand tri-color + olive + deep contrast. */
+  --chart-1: var(--accent-green);
+  --chart-2: var(--color-brand-yellow);
+  --chart-3: var(--color-brand-red);
+  --chart-4: var(--color-brand-olive);
+  --chart-5: var(--color-deep-contrast);
 
   --radius: 1rem;
-  --sidebar: rgba(255, 255, 255, 0.72);
-  --sidebar-foreground: #1c1606;
-  --sidebar-primary: #1fa85c;
-  --sidebar-primary-foreground: #fffdf5;
-  --sidebar-accent: rgba(255, 255, 255, 0.5);
-  --sidebar-accent-foreground: #1c1606;
-  --sidebar-border: rgba(255, 255, 255, 0.65);
-  --sidebar-ring: #1fa85c;
+  --sidebar: var(--color-surface);
+  --sidebar-foreground: var(--color-text-primary);
+  --sidebar-primary: var(--accent-green);
+  --sidebar-primary-foreground: var(--color-surface);
+  --sidebar-accent: var(--color-surface-secondary);
+  --sidebar-accent-foreground: var(--color-text-primary);
+  --sidebar-border: var(--color-border);
+  --sidebar-ring: var(--accent-green);
 }
 
 @layer base {
@@ -132,15 +182,16 @@
   }
   body {
     color: var(--foreground);
-    /* Warm yellow field with a soft top-down gradient for depth. Painted
-       directly on the (non-fixed) body so it covers the full document and
-       avoids a fixed layer, which hurts scroll perf and headless capture. */
-    background-color: var(--ailiur-yellow);
+    /* Warm neutral canvas with a restrained top-down lift — surface near the
+       top easing into the canvas, a whisper of secondary at the base. Painted
+       on the (non-fixed) body so it covers the full document without a fixed
+       layer that would hurt scroll perf or headless capture. */
+    background-color: var(--color-canvas);
     background-image: radial-gradient(
-      120% 60% at 50% -5%,
-      var(--ailiur-yellow-light) 0%,
-      var(--ailiur-yellow) 40%,
-      var(--ailiur-yellow-deep) 100%
+      120% 70% at 50% -10%,
+      var(--color-surface) 0%,
+      var(--color-canvas) 46%,
+      var(--color-surface-secondary) 150%
     );
     background-repeat: no-repeat;
     font-family: var(--font-sans), system-ui, sans-serif;
@@ -150,32 +201,45 @@
   h1, h2, h3, .font-display {
     font-family: var(--font-display), Georgia, serif;
   }
+  /* Selection picks up the brand yellow as a quiet brand signature. */
+  ::selection {
+    background: color-mix(in srgb, var(--color-brand-yellow) 55%, transparent);
+    color: var(--color-text-primary);
+  }
 }
 
 @layer components {
-  /* Frosted "Apple glass" panel */
+  /* Raised warm-white card. Lifts off the canvas via a sand hairline and a
+     soft neutral shadow — premium "barely-there" surface, not a glare panel. */
   .glass {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
-    -webkit-backdrop-filter: var(--glass-filter, blur(18px) saturate(160%));
-    backdrop-filter: var(--glass-filter, blur(18px) saturate(160%));
+    -webkit-backdrop-filter: var(--glass-filter, blur(12px) saturate(120%));
+    backdrop-filter: var(--glass-filter, blur(12px) saturate(120%));
   }
   .glass-strong {
     background: var(--glass-bg-strong);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
-    -webkit-backdrop-filter: var(--glass-filter, blur(20px) saturate(180%));
-    backdrop-filter: var(--glass-filter, blur(20px) saturate(180%));
+    -webkit-backdrop-filter: var(--glass-filter, blur(14px) saturate(130%));
+    backdrop-filter: var(--glass-filter, blur(14px) saturate(130%));
   }
-  /* Near-opaque surface for menus/dropdowns so text underneath never bleeds
-     through. Keeps a touch of the warm-cream glass look but stays readable. */
+  /* Opaque surface for menus/dropdowns so text underneath never bleeds
+     through. */
   .glass-solid {
-    background: rgba(255, 253, 245, 0.98);
+    background: var(--color-surface);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  /* Brand-emphasis badge — the yellow moment for eyebrows and pills. */
+  .badge-brand {
+    background: color-mix(in srgb, var(--color-brand-yellow) 30%, var(--color-surface));
+    border: 1px solid color-mix(in srgb, var(--color-brand-yellow) 55%, transparent);
+    color: var(--color-text-primary);
   }
 }
 

@@ -1,0 +1,45 @@
+# Ailiur
+
+> Ailiur builds AI-first outcome engines for learning, health, creativity, personal
+> intelligence, and work. Each product is a focused app that produces a real outcome;
+> all of them are connected by the Unified Context Mesh, a private, local-first context
+> layer so progress in one app compounds across the others.
+
+Positioning: AI-first outcome engines for a better human life.
+Connective layer: the Unified Context Mesh (private, local-first, on-device by default).
+Status: pre-launch. Founder Access reservations are open at https://www.ailiur.com/#founder-access
+
+## Core products
+
+- Qetos (health): Metabolic & energy tracking — educational, never diagnostic. https://qetos.ailiur.com
+- Enchiridion (learning): Guided learning that adapts to how you actually learn. https://www.enchiridion.ailiur.com
+- Oruvo (personal intelligence): Your life balance sheet — assets, goals, and time ROI. https://www.ailiur.com/oruvo
+- Tayzt (creativity): An AI-native atmosphere engine for creators. https://www.ailiur.com/tayzt
+- Tellumetry (work): Calm telemetry around your AI coding agents and projects. https://www.ailiur.com/tellumetry
+- Iris (personal intelligence): A personal intelligence interface. Coming soon.
+- Civis (work): Civic and organizational intelligence. Coming soon.
+- Unified Context Mesh / UCM: The private context layer that lets one Ailiur app improve another, with consent. https://www.ailiur.com/ucm
+
+## Outcome domains
+
+- Learning: Enchiridion, Aptellum
+- Health: Qetos, Daymesh
+- Creativity: Tayzt, Retellum
+- Personal intelligence: Oruvo, Iris
+- Work: Tellumetry, Civis
+
+## Principles
+
+- Local-first & sovereign: data lives on-device and is never sent anywhere unless you explicitly sync or share it.
+- Closed-loop: each engine measures its own output against your targets and tunes itself.
+- One context: the Unified Context Mesh connects every app with sub-millisecond, consent-based retrieval.
+
+## Key links
+
+- Home: https://www.ailiur.com
+- Full ecosystem: https://www.ailiur.com/products
+- Pricing: https://www.ailiur.com/pricing
+- Founder Access: https://www.ailiur.com/#founder-access
+- About: https://www.ailiur.com/about
+- Careers: https://www.ailiur.com/careers
+- Contact: https://www.ailiur.com/contact

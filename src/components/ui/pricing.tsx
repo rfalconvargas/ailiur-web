@@ -5,6 +5,7 @@ import { motion, type Variants } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { SmartLink } from '@/components/ui/smart-link';
+import { track } from '@/lib/analytics';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
@@ -36,7 +37,7 @@ const TIERS: Tier[] = [
     headline: 'Start with one Ailiur tool.',
     blurb: 'Choose one focused product and build your first personal context layer.',
     features: [
-      'One consumer product: Enchiridion, Qetos, Oruvo, Retellum, Tayzt, or Tellumetry',
+      'One outcome engine: Enchiridion, Qetos, Oruvo, Tayzt, or Tellumetry',
       'Personal local-first storage',
       'Basic Unified Context Mesh memory',
       'Standard AI usage',
@@ -225,6 +226,12 @@ export function Pricing() {
                 </ul>
                 <SmartLink
                   href={tier.href}
+                  onClick={() =>
+                    track('plan_select', {
+                      plan: tier.name.toLowerCase(),
+                      billing: annual ? 'annual' : 'monthly',
+                    })
+                  }
                   className={cn(
                     'mt-8 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5',
                     tier.featured ? 'bg-accent-green text-[#fffdf5]' : 'bg-foreground text-[#fffdf5]'

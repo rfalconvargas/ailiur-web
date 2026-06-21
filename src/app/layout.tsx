@@ -24,9 +24,45 @@ const rounded = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Ailiur",
+  metadataBase: new URL("https://www.ailiur.com"),
+  title: {
+    default: "Ailiur — AI-first outcome engines for a better human life",
+    template: "%s · Ailiur",
+  },
   description:
-    "Ailiur is the operating system for human flourishing. Qetos and Enchiridion, unified locally by the Context Mesh.",
+    "Ailiur builds AI-first outcome engines for learning, health, creativity, personal intelligence, and work — connected by one private Context Mesh so progress in one compounds across all.",
+  applicationName: "Ailiur",
+  keywords: [
+    "Ailiur",
+    "AI outcome engines",
+    "Unified Context Mesh",
+    "Qetos",
+    "Enchiridion",
+    "Oruvo",
+    "Tayzt",
+    "Tellumetry",
+    "local-first AI",
+    "personal AI operating system",
+  ],
+  authors: [{ name: "Ailiur" }],
+  creator: "Ailiur",
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    url: "https://www.ailiur.com",
+    siteName: "Ailiur",
+    locale: "en_US",
+    title: "Ailiur — AI-first outcome engines for a better human life",
+    description:
+      "AI-first apps for learning, health, creativity, personal intelligence, and work — connected by one private Context Mesh.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ailiur — AI-first outcome engines for a better human life",
+    description:
+      "AI-first apps for learning, health, creativity, personal intelligence, and work — connected by one private Context Mesh.",
+  },
 };
 
 export default function RootLayout({

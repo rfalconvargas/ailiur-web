@@ -127,9 +127,13 @@ export function AiliurAppShell() {
     setDrawerOpen(false);
   };
 
+  // NOTE: the overlay is intentionally NOT wrapped in <AnimatePresence>. Under
+  // React 19 + framer-motion 12, the exit animation could leave the dialog node
+  // mounted at opacity:0 with pointer-events, silently covering and blocking the
+  // homepage after "Back to homepage". Rendering it directly makes close an
+  // immediate, reliable unmount (the open fade-in is preserved via initial/animate).
   return (
-    <AnimatePresence>
-      {open && (
+    open && (
         <motion.div
           key="ailiur-app"
           role="dialog"
@@ -137,7 +141,6 @@ export function AiliurAppShell() {
           aria-label="Ailiur App"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: easeOut }}
           className="fixed inset-0 z-[100] overflow-hidden"
         >
@@ -246,7 +249,6 @@ export function AiliurAppShell() {
             )}
           </AnimatePresence>
         </motion.div>
-      )}
-    </AnimatePresence>
+      )
   );
 }

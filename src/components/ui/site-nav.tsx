@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { SmartLink } from '@/components/ui/smart-link';
 import { ENTERPRISE_APPS } from '@/lib/enterprise';
 import { useAiliurApp } from '@/components/app/app-context';
+import { track } from '@/lib/analytics';
 
 type SessionUser = { name?: string | null; email?: string | null; image?: string | null };
 
@@ -85,7 +86,7 @@ function Dropdown({
       className="glass-solid absolute left-1/2 top-full z-50 mt-3 w-[300px] -translate-x-1/2 rounded-[var(--radius-card)] p-2"
     >
       {menu.groups.map((group, gi) => (
-        <div key={gi} className={cn(gi > 0 && 'mt-1 border-t border-white/40 pt-1')}>
+        <div key={gi} className={cn(gi > 0 && 'mt-1 border-t border-[var(--color-border)]/70 pt-1')}>
           {group.title && group.href ? (
             <SmartLink
               href={group.href}
@@ -243,7 +244,7 @@ function AccountMenu({ user }: { user: SessionUser }) {
               <p className="truncate text-sm font-semibold text-foreground">{user.name ?? 'Signed in'}</p>
               {user.email && <p className="truncate text-xs text-foreground/55">{user.email}</p>}
             </div>
-            <div className="my-1 border-t border-white/40" />
+            <div className="my-1 border-t border-[var(--color-border)]/70" />
             <SmartLink
               href="/account"
               className="block w-full rounded-2xl px-3 py-2 text-left text-sm font-medium text-foreground transition-colors hover:bg-white/50"
@@ -362,14 +363,27 @@ export function SiteNav() {
 
         {/* Right actions */}
         <div className="hidden items-center gap-2 lg:flex">
-          {/* Primary nav action — launch the fullscreen Ailiur App. */}
+          {/* Tertiary — the in-page workspace, for warm users who already have an app. */}
           <button
             type="button"
-            onClick={() => openApp()}
-            className="rounded-full bg-accent-green px-4 py-2 text-sm font-semibold text-[#fffdf5] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-green"
+            onClick={() => {
+              track('launch_app', { source: 'nav' });
+              openApp();
+            }}
+            className="rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
           >
             Launch App
           </button>
+          {/* Primary nav action — view pricing plans. */}
+          <SmartLink
+            href="/pricing"
+            onClick={() =>
+              track('cta_click', { id: 'see_pricing', location: 'nav', label: 'See pricing' })
+            }
+            className="rounded-full bg-accent-green px-4 py-2 text-sm font-semibold text-[#fffdf5] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-green"
+          >
+            See pricing
+          </SmartLink>
           {user ? (
             <AccountMenu user={user} />
           ) : (
@@ -418,7 +432,7 @@ export function SiteNav() {
               Home
             </SmartLink>
             {MENUS.map((menu) => (
-              <div key={menu.label} className="border-b border-white/40 py-2 last:border-0">
+              <div key={menu.label} className="border-b border-[var(--color-border)]/70 py-2 last:border-0">
                 <p className="px-1 py-1 text-xs font-semibold uppercase tracking-wider text-foreground/50">
                   {menu.label}
                 </p>
@@ -466,14 +480,26 @@ export function SiteNav() {
             >
               Pricing
             </SmartLink>
-            {/* Primary action — launch the fullscreen Ailiur App. */}
+            {/* Primary action — view pricing plans. */}
+            <SmartLink
+              href="/pricing"
+              onClick={() => {
+                track('cta_click', { id: 'see_pricing', location: 'nav_mobile', label: 'See pricing' });
+                setMobileOpen(false);
+              }}
+              className="mt-1 block w-full rounded-full bg-accent-green px-4 py-2.5 text-center text-sm font-semibold text-[#fffdf5]"
+            >
+              See pricing
+            </SmartLink>
+            {/* Tertiary — the in-page workspace. */}
             <button
               type="button"
               onClick={() => {
+                track('launch_app', { source: 'nav_mobile' });
                 setMobileOpen(false);
                 openApp();
               }}
-              className="mt-1 block w-full rounded-full bg-accent-green px-4 py-2.5 text-center text-sm font-semibold text-[#fffdf5]"
+              className="mt-2 block w-full rounded-full border border-[var(--color-border)] px-4 py-2.5 text-center text-sm font-medium text-foreground"
             >
               Launch App
             </button>
@@ -502,7 +528,7 @@ export function SiteNav() {
                   </SmartLink>
                   <button
                     onClick={() => signOut({ callbackUrl: '/' })}
-                    className="flex-1 rounded-full border border-white/60 px-4 py-2 text-sm font-medium"
+                    className="flex-1 rounded-full border border-[var(--color-border)] px-4 py-2 text-sm font-medium"
                   >
                     Sign out
                   </button>
@@ -512,7 +538,7 @@ export function SiteNav() {
               <div className="mt-2 flex gap-2">
                 <SmartLink
                   href="/login"
-                  className="flex-1 rounded-full border border-white/60 px-4 py-2.5 text-center text-sm font-medium"
+                  className="flex-1 rounded-full border border-[var(--color-border)] px-4 py-2.5 text-center text-sm font-medium"
                 >
                   Log In
                 </SmartLink>

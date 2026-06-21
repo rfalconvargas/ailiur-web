@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { track } from '@/lib/analytics';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
@@ -15,19 +16,23 @@ const rise: Variants = {
 const FAQS = [
   {
     q: 'What exactly is Ailiur?',
-    a: 'Ailiur is the operating system for human flourishing. Its apps — Qetos for metabolic health and Enchiridion for learning — run on a shared, local-first Context Mesh, so progress in one part of your life informs the rest.',
+    a: 'Ailiur builds AI-first outcome engines — focused apps for learning, health, creativity, personal intelligence, and work, like Enchiridion, Qetos, Oruvo, Tayzt, and Tellumetry. Each one produces a real outcome on its own, and the Unified Context Mesh connects them so progress in one compounds across the rest.',
   },
   {
     q: 'What is the Unified Context Mesh?',
-    a: 'A lightweight, on-device data layer that lets your apps share context securely. Health signals, study patterns, and focus data cross-pollinate locally, with sub-millisecond retrieval and no cloud dependency.',
+    a: 'A lightweight, on-device context layer that lets your apps share context securely. Health signals, study patterns, and focus data cross-pollinate locally, with sub-millisecond retrieval and no cloud dependency — only with your consent.',
   },
   {
     q: 'Is my data private?',
     a: 'Yes. Ailiur is local-first and sovereign by design — your data lives on your device and is never sent anywhere unless you explicitly choose to sync or share it.',
   },
   {
-    q: 'Do I need both apps to get value?',
-    a: 'No. Start with either Qetos or Enchiridion on the Core plan. The Mesh simply makes them better together when you add the second.',
+    q: 'Do I need every app to get value?',
+    a: 'No. Start with the one engine that matches the outcome you want most. The Context Mesh simply makes each additional app you add sharper — the value compounds, it isn’t required up front.',
+  },
+  {
+    q: 'Is Ailiur available now?',
+    a: 'Ailiur is pre-launch. Several apps are already live, and you can reserve a plan now to lock in early-supporter pricing before the full connected ecosystem rolls out.',
   },
 ];
 
@@ -36,7 +41,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <motion.div variants={rise} className="glass overflow-hidden rounded-[var(--radius-card)]">
       <button
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          setOpen((v) => {
+            if (!v) track('faq_open', { question: q });
+            return !v;
+          });
+        }}
         aria-expanded={open}
         className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
       >

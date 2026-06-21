@@ -156,7 +156,7 @@ export function SiteFooter() {
         </div>
 
         {/* Legal row */}
-        <div className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/40 pt-8">
+        <div className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[var(--color-border)]/70 pt-8">
           {LEGAL.map((l) => (
             <SmartLink
               key={l.label}
@@ -179,7 +179,7 @@ export function SiteFooter() {
               className="h-8 w-8 rounded-lg object-cover"
             />
             <span className="text-sm text-foreground/60">
-              © {new Date().getFullYear()} Ailiur. The operating system for human flourishing.
+              © {new Date().getFullYear()} Ailiur. AI-first outcome engines for a better human life.
             </span>
           </div>
           <div className="flex items-center gap-4">

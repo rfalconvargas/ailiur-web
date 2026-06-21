@@ -37,8 +37,10 @@ export function LogFirstMediaDemo() {
   const [reflection, setReflection] = useState('');
   const [tags, setTags] = useState('');
 
-  // Load any previously saved entries once, on the client only.
+  // Load any previously saved entries once, on the client only. The synchronous
+  // setState here is intentional one-time hydration, not a render loop.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEntries(loadEntries());
     setHydrated(true);
   }, []);
